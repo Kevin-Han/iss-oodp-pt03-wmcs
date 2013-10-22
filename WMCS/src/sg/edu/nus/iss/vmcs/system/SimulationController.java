@@ -93,6 +93,7 @@ public class SimulationController {
 	public void setupCustomer() {
 		// TODO Auto-generated method stub
 		CustomerController cCtrl = mCtrl.getCustomerController();
+		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, false);
 		cCtrl.displayCustomerPanel();
 	}
 
