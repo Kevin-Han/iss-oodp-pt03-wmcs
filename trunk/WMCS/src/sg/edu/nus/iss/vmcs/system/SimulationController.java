@@ -8,6 +8,7 @@ package sg.edu.nus.iss.vmcs.system;
  *
  */
 
+import sg.edu.nus.iss.vmcs.customer.CustomerController;
 import sg.edu.nus.iss.vmcs.maintenance.MaintenanceController;
 import sg.edu.nus.iss.vmcs.machinery.MachineryController;
 import sg.edu.nus.iss.vmcs.util.*;
@@ -87,6 +88,12 @@ public class SimulationController {
 
 	public MainController getMainController() {
 		return mCtrl;
+	}
+
+	public void setupCustomer() {
+		// TODO Auto-generated method stub
+		CustomerController cCtrl = mCtrl.getCustomerController();
+		cCtrl.displayCustomerPanel();
 	}
 
 }
