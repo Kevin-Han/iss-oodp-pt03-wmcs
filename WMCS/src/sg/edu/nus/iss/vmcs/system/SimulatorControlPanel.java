@@ -18,6 +18,8 @@ package sg.edu.nus.iss.vmcs.system;
 import java.awt.*;
 import java.awt.event.*;
 
+import sg.edu.nus.iss.vmcs.customer.ActivateCustomerPanelButtonListener;
+
 
 public class SimulatorControlPanel extends Frame {
 
@@ -61,7 +63,8 @@ public class SimulatorControlPanel extends Frame {
 		          new ActivateMaintainerPanelButtonListener(simulationCtrl));
         addButton(ACT_MACHINERY,  L_ACT_MACHINERY,
 		          new ActivateMachineryPanelButtonListener(simulationCtrl));
-        addButton(ACT_CUSTOMER, L_ACT_CUSTOMER, null);
+        addButton(ACT_CUSTOMER, L_ACT_CUSTOMER, 
+        		  new ActivateCustomerPanelButtonListener(simulationCtrl));
         addButton(SIMUL_END,  L_SIMUL_END,
 		          new EndSimulationButtonListener(mainCtrl));
 
@@ -102,6 +105,7 @@ public class SimulatorControlPanel extends Frame {
         setButtonState (SIMUL_BEGIN,   !isOn);
         setButtonState (ACT_MAINTAINER, isOn);
         setButtonState (ACT_MACHINERY,  isOn);
+        setButtonState (ACT_CUSTOMER,  isOn);
         setButtonState (SIMUL_END,      isOn);
     }
 
