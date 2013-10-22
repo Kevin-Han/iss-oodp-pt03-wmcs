@@ -2,7 +2,6 @@ package sg.edu.nus.iss.vmcs.customer;
 
 import java.awt.Frame;
 
-import sg.edu.nus.iss.vmcs.maintenance.MaintenancePanel;
 import sg.edu.nus.iss.vmcs.system.MainController;
 import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 
@@ -25,6 +24,15 @@ public class CustomerController {
 		if (cpanel == null)
 			cpanel = new CustomerPanel((Frame) scp, this);
 		cpanel.display();
+	}
+
+	public void closeCustomerPanel() {
+		if (cpanel == null)
+			return;
+		
+		cpanel.dispose();
+		SimulatorControlPanel scp = mCtrl.getSimulatorControlPanel();
+		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, true);
 	}
 
 }

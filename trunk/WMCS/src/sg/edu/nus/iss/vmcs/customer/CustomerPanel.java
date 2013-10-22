@@ -9,6 +9,8 @@ import java.awt.Label;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CustomerPanel extends Dialog {
 
@@ -37,6 +39,12 @@ public class CustomerPanel extends Dialog {
 		
 		pack();
 		setLocation(100, 100);
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				cControl.closeCustomerPanel();
+			}
+		});
 	}
 
 	public void display() {
