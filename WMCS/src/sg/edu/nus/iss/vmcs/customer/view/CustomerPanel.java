@@ -3,6 +3,7 @@ package sg.edu.nus.iss.vmcs.customer.view;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Dialog;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
@@ -24,15 +25,31 @@ public class CustomerPanel extends Dialog {
 		super(fr, TITLE, false);
 		cControl = cc;
 		
+		// north part
+		Panel p1 = new Panel();
+		Label lb = new Label(TITLE);
+		lb.setFont(new Font("Helvetica", Font.BOLD, 24));
+		p1.add(lb);
+		
+		Panel container = new Panel();
+		container.setLayout(new BorderLayout());
+		Label coinLbl = new Label("Enter Coins Here");
+		container.add("North", coinLbl);
+		
 		Panel tpc = new Panel();
+		container.add("Center", tpc);
 		final Label l1 = new Label("Total Cash");
 		ActionListener l = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String coin = e.getActionCommand();
-				int amt = Integer.parseInt(coin.split(" ")[0]);
-				totalCash += amt; 
-				l1.setText("Total Cash: " + totalCash + " C");
+				String[] c = e.getActionCommand().split(" ");
+				if (c.length == 1)
+					l1.setText("Invalid coin!");
+				else {
+					int amt = Integer.parseInt(c[0]);
+					totalCash += amt; 
+					l1.setText("Total Cash: " + totalCash + " C");
+				}
 			}
 		};
 		
@@ -42,20 +59,24 @@ public class CustomerPanel extends Dialog {
 		Button b3 = new Button("20 C");
 		Button b4 = new Button("50 C");
 		Button b5 = new Button("100 C");
+		Button b6 = new Button("Invalid");
 		b1.addActionListener(l);
 		b2.addActionListener(l);
 		b3.addActionListener(l);
 		b4.addActionListener(l);
 		b5.addActionListener(l);
+		b6.addActionListener(l);
 		
 		tpc.add(b1);
 		tpc.add(b2);
 		tpc.add(b3);
 		tpc.add(b4);
 		tpc.add(b5);
+		tpc.add(b6);
 		
 		this.setLayout(new BorderLayout());
-		this.add("Center", tpc);
+		this.add("North", p1);
+		this.add("Center", container);
 		this.add("South", l1);
 		
 		pack();
