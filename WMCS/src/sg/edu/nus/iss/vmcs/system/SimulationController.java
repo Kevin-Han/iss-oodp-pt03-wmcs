@@ -91,7 +91,7 @@ public class SimulationController {
 	}
 
 	public void setupCustomer() {
-		TransactionController cCtrl = mCtrl.getCustomerController();
+		TransactionController cCtrl = mCtrl.getTransactionController();
 		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, false);
 		cCtrl.displayCustomerPanel();
 	}
