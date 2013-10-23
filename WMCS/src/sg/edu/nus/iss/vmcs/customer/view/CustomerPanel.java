@@ -36,9 +36,15 @@ public class CustomerPanel extends Dialog {
 		Label coinLbl = new Label("Enter Coins Here");
 		container.add("North", coinLbl);
 		
+		Panel totalPanel = new Panel();
+		totalPanel.setLayout(new BorderLayout());
+		Label totalLbl = new Label("Total Money Inserted:");
+		totalPanel.add("West", totalLbl);
+		container.add("South", totalPanel);
+		
 		Panel tpc = new Panel();
 		container.add("Center", tpc);
-		final Label l1 = new Label("Total Cash");
+		final Label l1 = new Label("0");
 		ActionListener l = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -48,7 +54,7 @@ public class CustomerPanel extends Dialog {
 				else {
 					int amt = Integer.parseInt(c[0]);
 					totalCash += amt; 
-					l1.setText("Total Cash: " + totalCash + " C");
+					l1.setText(totalCash + " C");
 				}
 			}
 		};
