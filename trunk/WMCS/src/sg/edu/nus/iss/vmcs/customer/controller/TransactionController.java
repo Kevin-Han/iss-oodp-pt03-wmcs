@@ -26,6 +26,14 @@ public class TransactionController {
 		changeGiver = new ChangeGiver(this);
 	}
 	
+	public CoinReceiver getCoinReceiver() {
+		return coinReceiver;
+	}
+	
+	public ChangeGiver getChangeGiver() {
+		return changeGiver;
+	}
+	
 	public MainController getMainController() {
 		return mainController;
 	}
