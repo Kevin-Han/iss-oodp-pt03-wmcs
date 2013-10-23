@@ -28,7 +28,7 @@ public class MainController {
 	private SimulationController  simulatorCtrl;
 	private MachineryController   machineryCtrl;
 	private MaintenanceController maintenanceCtrl;
-	private TransactionController customerCtrl;
+	private TransactionController transactionCtrl;
 	private StoreController       storeCtrl;
 
 	private String      propertyFile;
@@ -72,8 +72,8 @@ public class MainController {
 			machineryCtrl.initialize();
 			maintenanceCtrl = new MaintenanceController(this);
 			
-			customerCtrl = new TransactionController(this);
-			customerCtrl.initialize();
+			transactionCtrl = new TransactionController(this);
+			transactionCtrl.initialize();
 		} catch (IOException e) {
 			throw new VMCSException(
 				"MainController.initialize",
@@ -101,8 +101,8 @@ public class MainController {
 		return maintenanceCtrl;
 	}
 
-	public TransactionController getCustomerController() {
-		return customerCtrl;
+	public TransactionController getTransactionController() {
+		return transactionCtrl;
 	}
 	
 	public void closeDown() {
@@ -113,6 +113,7 @@ public class MainController {
 		}
 		machineryCtrl.closeDown();
 		maintenanceCtrl.closeDown();
+		transactionCtrl.closeDown();
 		simulatorCtrl.closeDown();
 	}
 

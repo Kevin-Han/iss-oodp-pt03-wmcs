@@ -18,7 +18,6 @@ package sg.edu.nus.iss.vmcs.system;
 import java.awt.*;
 import java.awt.event.*;
 
-import sg.edu.nus.iss.vmcs.customer.view.ActivateCustomerPanelButtonListener;
 
 
 public class SimulatorControlPanel extends Frame {

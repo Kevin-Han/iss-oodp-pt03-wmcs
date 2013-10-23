@@ -11,6 +11,11 @@ public class TransactionController {
 	private MainController mCtrl;
 	private CustomerPanel cpanel;
 	
+	private boolean changeGiven;
+	private boolean drinkDispensed;
+	private int price;
+	private int selection;
+	
 	public TransactionController(MainController mc) {
 		mCtrl = mc;
 	}
@@ -37,6 +42,10 @@ public class TransactionController {
 		//scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, false);
 	}
 
+	public void refreshCustomerPanel() {
+		//TODO
+	}
+	
 	public void closeCustomerPanel() {
 		if (cpanel == null)
 			return;

@@ -1,9 +1,8 @@
-package sg.edu.nus.iss.vmcs.customer.view;
+package sg.edu.nus.iss.vmcs.system;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import sg.edu.nus.iss.vmcs.system.SimulationController;
 
 public class ActivateCustomerPanelButtonListener implements ActionListener {
 
