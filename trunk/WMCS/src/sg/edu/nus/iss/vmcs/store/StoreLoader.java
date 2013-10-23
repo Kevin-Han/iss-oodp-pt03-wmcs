@@ -1,6 +1,5 @@
-package sg.edu.nus.iss.vmcs.system;
+package sg.edu.nus.iss.vmcs.store;
 
-import sg.edu.nus.iss.vmcs.store.Store;
 
 public interface StoreLoader {
 	

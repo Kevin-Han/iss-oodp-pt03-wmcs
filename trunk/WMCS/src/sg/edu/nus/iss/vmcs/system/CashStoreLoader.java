@@ -7,6 +7,7 @@ import sg.edu.nus.iss.vmcs.store.CashStoreItem;
 import sg.edu.nus.iss.vmcs.store.PropertyLoader;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.store.StoreLoader;
 
 public class CashStoreLoader implements StoreLoader{
 	//refined abstraction
