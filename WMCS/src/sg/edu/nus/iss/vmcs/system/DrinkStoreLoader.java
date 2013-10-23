@@ -6,6 +6,7 @@ import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
 import sg.edu.nus.iss.vmcs.store.PropertyLoader;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.store.StoreLoader;
 import sg.edu.nus.iss.vmcs.store.StoreObject;
 
 public class DrinkStoreLoader implements StoreLoader {

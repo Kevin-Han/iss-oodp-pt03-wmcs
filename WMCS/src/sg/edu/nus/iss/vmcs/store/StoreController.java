@@ -10,8 +10,6 @@ package sg.edu.nus.iss.vmcs.store;
 
 import java.io.*;
 
-import sg.edu.nus.iss.vmcs.system.StoreLoader;
-
 /**
  *
  *
