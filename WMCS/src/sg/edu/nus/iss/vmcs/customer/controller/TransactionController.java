@@ -8,8 +8,11 @@ import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 
 public class TransactionController {
 
-	private MainController mCtrl;
-	private CustomerPanel cpanel;
+	private MainController mainController;
+	private CustomerPanel customerPanel;
+	private DispenseController dispenseController;
+	private CoinReceiver coinReceiver;
+	private ChangeGiver changeGiver;
 	
 	private boolean changeGiven;
 	private boolean drinkDispensed;
@@ -17,29 +20,33 @@ public class TransactionController {
 	private int selection;
 	
 	public TransactionController(MainController mc) {
-		mCtrl = mc;
+		mainController = mc;
+		dispenseController = new DispenseController(this);
+		coinReceiver = new CoinReceiver(this);
+		changeGiver = new ChangeGiver(this);
 	}
 	
 	public MainController getMainController() {
-		return mCtrl;
+		return mainController;
 	}
 	
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void closeDown() {
-		if (cpanel != null)
-			cpanel.dispose();
+		if (customerPanel != null)
+			customerPanel.dispose();
 	}
 	
 	public void displayCustomerPanel() {
-		SimulatorControlPanel scp = mCtrl.getSimulatorControlPanel();
-		if (cpanel == null)
-			cpanel = new CustomerPanel((Frame) scp, this);
-		cpanel.display();
-		//scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, false);
+		SimulatorControlPanel scp = mainController.getSimulatorControlPanel();
+		if (customerPanel == null)
+			customerPanel = new CustomerPanel((Frame) scp, this);
+		customerPanel.display();
+		
+		dispenseController.updateDrinkPanel();
+		dispenseController.allowSelection(true);
+		changeGiver.displayChangeStatus();
+		
+		// redundant, kept to align with design doc
+		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, false);
 	}
 
 	public void refreshCustomerPanel() {
@@ -47,11 +54,11 @@ public class TransactionController {
 	}
 	
 	public void closeCustomerPanel() {
-		if (cpanel == null)
+		if (customerPanel == null)
 			return;
 		
-		cpanel.dispose();
-		SimulatorControlPanel scp = mCtrl.getSimulatorControlPanel();
+		customerPanel.dispose();
+		SimulatorControlPanel scp = mainController.getSimulatorControlPanel();
 		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, true);
 	}
 

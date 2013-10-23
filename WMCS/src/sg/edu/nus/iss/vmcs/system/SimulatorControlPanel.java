@@ -71,11 +71,11 @@ public class SimulatorControlPanel extends Frame {
         setLocation(100, 100);
 
         addWindowListener(new WindowAdapter() {
-	    public void windowClosing(WindowEvent e) {
+		    public void windowClosing(WindowEvent e) {
                 simulationCtrl.getMainController().closeDown();
                 dispose();
             }
-	});
+		});
     }
 
     public void display(){

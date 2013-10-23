@@ -67,13 +67,12 @@ public class MainController {
 			
 			storeCtrl = new StoreController(cashStoreLoader, drinkStoreLoader);
 			storeCtrl.initialize();
+			
 			simulatorCtrl = new SimulationController(this);
 			machineryCtrl = new MachineryController(this);
 			machineryCtrl.initialize();
 			maintenanceCtrl = new MaintenanceController(this);
-			
 			transactionCtrl = new TransactionController(this);
-			transactionCtrl.initialize();
 		} catch (IOException e) {
 			throw new VMCSException(
 				"MainController.initialize",
