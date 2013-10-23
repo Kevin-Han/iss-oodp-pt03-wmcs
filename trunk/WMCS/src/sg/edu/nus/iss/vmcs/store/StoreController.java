@@ -10,6 +10,8 @@ package sg.edu.nus.iss.vmcs.store;
 
 import java.io.*;
 
+import sg.edu.nus.iss.vmcs.system.StoreLoader;
+
 /**
  *
  *
@@ -22,12 +24,15 @@ public class StoreController {
 	private CashStore cStore;
 	private DrinksStore dStore;
 
-	private PropertyLoader cashLoader;
-	private PropertyLoader drinksLoader;
+	//private PropertyLoader cashLoader;
+	//private PropertyLoader drinksLoader;
+	private StoreLoader cashLoader;
+	private StoreLoader drinksLoader;
+	
 
 	public StoreController(
-		PropertyLoader cashLoader,
-		PropertyLoader drinksLoader) {
+			StoreLoader cashLoader,
+			StoreLoader drinksLoader) {
 		this.cashLoader = cashLoader;
 		this.drinksLoader = drinksLoader;
 	}
@@ -45,7 +50,7 @@ public class StoreController {
 
 	private void initializeDrinkStore() throws IOException {
 
-		// get the drink file from the environment property file;
+/*		// get the drink file from the environment property file;
 		int numOfItems = drinksLoader.getNumOfItems();
 		dStore.setStoreSize(numOfItems);
 
@@ -57,11 +62,13 @@ public class StoreController {
 			    item.setContent(existingBrand);
 			}
 			dStore.addItem(i, item);
-		}
+		}*/
+		cashLoader.loadAll(cStore);
+		
 	}
 
 	private void initializeCashStore() throws IOException {
-
+/*
 		// get the cash file from the environment property file;
 		int numOfItems = cashLoader.getNumOfItems();
 		cStore.setStoreSize(numOfItems);
@@ -69,7 +76,8 @@ public class StoreController {
 		for (int i = 0; i < numOfItems; i++) {
 		    CashStoreItem item = (CashStoreItem) cashLoader.getItem(i);
 			cStore.addItem(i, item);
-		}
+		}*/
+		drinksLoader.loadAll(dStore);
 	}
 
 	public void storeCoin(Coin c) {
@@ -166,24 +174,26 @@ public class StoreController {
 	}
 
 	private void saveCashProperties() throws IOException {
-		int size = cStore.getStoreSize();
+		/*int size = cStore.getStoreSize();
 		cashLoader.setNumOfItems(size);
 		for (int i = 0; i < size; i++) {
 			cashLoader.setItem(i, cStore.getStoreItem(i));
 		}
-		cashLoader.saveProperty();
+		cashLoader.saveProperty();*/
+		cashLoader.saveAll(cStore);
 	}
 
 	/*
 	 * save the drink property when simulation is ended.
 	 */
 	private void saveDrinksProperties() throws IOException {
-		int size = dStore.getStoreSize();
+		/*int size = dStore.getStoreSize();
 		drinksLoader.setNumOfItems(size);
 		for (int i = 0; i < size; i++) {
 			drinksLoader.setItem(i, dStore.getStoreItem(i));
 		}
-		drinksLoader.saveProperty();
+		drinksLoader.saveProperty();*/
+		drinksLoader.saveAll(dStore);
 	}
 
 	public void dispenseDrink(int idx)  {
