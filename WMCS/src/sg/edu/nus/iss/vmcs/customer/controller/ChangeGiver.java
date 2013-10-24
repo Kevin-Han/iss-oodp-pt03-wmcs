@@ -14,7 +14,11 @@ public class ChangeGiver {
 	}
 
 	public void resetChange() {
-		// TODO Auto-generated method stub
-		
+		transactionController.getRefundBox().setValue("0C");
+	}
+	
+	public boolean giveChange(int change) {
+		transactionController.getRefundBox().setValue(change + "C");
+		return true;
 	}
 }
