@@ -16,6 +16,7 @@ public class DrinkSelectionItem extends Panel {
 	
 	public DrinkSelectionItem(int index, String brand, int p, boolean inStock, ActionListener listener) {
 		drinkBrand = new Button(brand);
+		drinkBrand.setEnabled(!inStock);
 		drinkBrand.addActionListener(listener);
 		drinkBrand.setActionCommand(String.valueOf(index));
 		
@@ -36,6 +37,7 @@ public class DrinkSelectionItem extends Panel {
 	
 	public void setItemState(boolean active) {
 		stockState.setState(active);
+		drinkBrand.setEnabled(!active);
 	}
 	
 	public void setPrice(int price) {
