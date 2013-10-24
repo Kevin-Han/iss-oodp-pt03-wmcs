@@ -58,12 +58,12 @@ public class SimulatorControlPanel extends Frame {
 
         addButton(SIMUL_BEGIN, L_SIMUL_BEGIN,
 		          new BeginSimulationButtonListener(simulationCtrl));
+        addButton(ACT_CUSTOMER, L_ACT_CUSTOMER, 
+      		  new ActivateCustomerPanelButtonListener(simulationCtrl));
         addButton(ACT_MAINTAINER, L_ACT_MAINTAINER,
 		          new ActivateMaintainerPanelButtonListener(simulationCtrl));
         addButton(ACT_MACHINERY,  L_ACT_MACHINERY,
 		          new ActivateMachineryPanelButtonListener(simulationCtrl));
-        addButton(ACT_CUSTOMER, L_ACT_CUSTOMER, 
-        		  new ActivateCustomerPanelButtonListener(simulationCtrl));
         addButton(SIMUL_END,  L_SIMUL_END,
 		          new EndSimulationButtonListener(mainCtrl));
 

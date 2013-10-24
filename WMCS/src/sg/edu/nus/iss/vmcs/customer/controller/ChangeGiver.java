@@ -12,4 +12,9 @@ public class ChangeGiver {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void resetChange() {
+		// TODO Auto-generated method stub
+		
+	}
 }

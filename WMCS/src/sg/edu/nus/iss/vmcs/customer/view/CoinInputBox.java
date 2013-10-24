@@ -19,7 +19,7 @@ public class CoinInputBox extends Panel {
 	private int[] coinWeights;
 	private int totalCash = 0;
 	
-	public CoinInputBox(Component container, CoinReceiver coinReceiver, TransactionController transactionController) {
+	public CoinInputBox(CoinReceiver coinReceiver, TransactionController transactionController) {
 		setLayout(new BorderLayout());
 		
 		Label coinLbl = new Label("Enter Coins Here");

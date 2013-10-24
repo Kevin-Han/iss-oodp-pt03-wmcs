@@ -109,7 +109,7 @@ public class MaintenancePanel extends Dialog {
 		this.add("Center", tpc);
 
 		pack();
-		setLocation(200, 100);
+		setLocation(720, 100);
 	}
 
 	public void display() {

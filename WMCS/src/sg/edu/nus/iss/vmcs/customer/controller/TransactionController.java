@@ -3,6 +3,10 @@ package sg.edu.nus.iss.vmcs.customer.controller;
 import java.awt.Frame;
 
 import sg.edu.nus.iss.vmcs.customer.view.CustomerPanel;
+import sg.edu.nus.iss.vmcs.store.DrinksBrand;
+import sg.edu.nus.iss.vmcs.store.Store;
+import sg.edu.nus.iss.vmcs.store.StoreController;
+import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.system.MainController;
 import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 
@@ -10,6 +14,7 @@ public class TransactionController {
 
 	private MainController mainController;
 	private CustomerPanel customerPanel;
+	private StoreController storeController;
 	private DispenseController dispenseController;
 	private CoinReceiver coinReceiver;
 	private ChangeGiver changeGiver;
@@ -21,6 +26,7 @@ public class TransactionController {
 	
 	public TransactionController(MainController mc) {
 		mainController = mc;
+		storeController = mc.getStoreController();
 		dispenseController = new DispenseController(this);
 		coinReceiver = new CoinReceiver(this);
 		changeGiver = new ChangeGiver(this);
@@ -68,6 +74,22 @@ public class TransactionController {
 		customerPanel.dispose();
 		SimulatorControlPanel scp = mainController.getSimulatorControlPanel();
 		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, true);
+	}
+
+	public void startTransaction(int index) {
+		StoreItem storeItem = storeController.getStoreItem(Store.DRINK, index);
+		DrinksBrand drink = (DrinksBrand) storeItem.getContent();
+		int price = drink.getPrice();
+		System.out.println(drink.getName() + " (" + price + "C) selected");
+		
+		changeGiver.resetChange();
+		dispenseController.resetCan();
+		changeGiver.displayChangeStatus();
+		
+		dispenseController.allowSelection(true);
+		
+		coinReceiver.startReceive();
+		
 	}
 
 }
