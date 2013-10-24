@@ -1,5 +1,10 @@
 package sg.edu.nus.iss.vmcs.store;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 /*
  * Copyright 2003 ISS.
  * The contents contained in this document may not be reproduced in any
@@ -15,7 +20,7 @@ package sg.edu.nus.iss.vmcs.store;
  * @author Olivo Miotto, Pang Ping Li
  */
 
-public class StoreItem {
+public class StoreItem extends Observable {
 
 	private StoreObject content;
 	private int quantity;
@@ -35,6 +40,8 @@ public class StoreItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		setChanged();
+		notifyObservers();
 	}
 
 	public int getQuantity() {
@@ -54,4 +61,5 @@ public class StoreItem {
 	public void increment() {
 		quantity++;
 	}
+	
 }

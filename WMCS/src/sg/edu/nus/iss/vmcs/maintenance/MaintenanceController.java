@@ -9,6 +9,8 @@ package sg.edu.nus.iss.vmcs.maintenance;
  */
 
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 import sg.edu.nus.iss.vmcs.store.*;
 import sg.edu.nus.iss.vmcs.system.*;
@@ -22,7 +24,7 @@ import sg.edu.nus.iss.vmcs.util.*;
  * @author Olivo Miotto, Pang Ping Li
  */
 
-public class MaintenanceController {
+public class MaintenanceController implements Observer {
 
 	private MainController mCtrl;
 	private MaintenancePanel mpanel;
@@ -31,6 +33,12 @@ public class MaintenanceController {
 	public MaintenanceController(MainController mctrl) {
 		mCtrl = mctrl;
 		am = new AccessManager(this);
+		
+		StoreController storeController = mCtrl.getStoreController();
+		StoreItem[] cashItems = storeController.getStoreItems(Store.CASH);
+		for (StoreItem item : cashItems) {
+			item.addObserver(this);
+		}
 	}
 
 	public MainController getMainController() {
@@ -167,5 +175,12 @@ public class MaintenanceController {
 		if (mpanel != null)
 			mpanel.closeDown();
 	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		System.out.println("Updating maintenance panel...");
+	}
+	
 
 }

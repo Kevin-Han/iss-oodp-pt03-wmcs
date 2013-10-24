@@ -54,8 +54,10 @@ public class CustomerPanel extends Dialog {
 		bottomPanel.add(terminatePanel);
 		
 		LabelledDisplay collectCoin = new LabelledDisplay("Collect Coins:", 5, LabelledDisplay.DEFAULT);
+		collectCoin.setEnabled(false);
 		collectCoin.setValue("0C");
 		LabelledDisplay collectCan = new LabelledDisplay("Collect Can Here:", 5, LabelledDisplay.DEFAULT);
+		collectCan.setEnabled(false);
 		collectCan.setValue("NO CAN");
 		bottomPanel.add(collectCoin);
 		bottomPanel.add(collectCan);
@@ -74,7 +76,7 @@ public class CustomerPanel extends Dialog {
 		//this.add(collectCoin);
 		//this.add(collectCan);
 		pack();
-		setLocation(100, 100);
+		setLocation(350, 100);
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
