@@ -21,4 +21,9 @@ public class DispenseController {
 	private void updateDrinkSelection(int selection) {
 		
 	}
+
+	public void resetCan() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,44 +1,36 @@
 package sg.edu.nus.iss.vmcs.customer.view;
 
-import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
 
-import com.sun.org.apache.bcel.internal.generic.F2D;
-
 import sg.edu.nus.iss.vmcs.customer.controller.TransactionController;
+import sg.edu.nus.iss.vmcs.store.DrinksBrand;
+import sg.edu.nus.iss.vmcs.store.Store;
+import sg.edu.nus.iss.vmcs.store.StoreController;
+import sg.edu.nus.iss.vmcs.store.StoreItem;
 
 public class DrinkSelectionBox extends Panel {
 
 	private TransactionController transactionController;
+	private StoreController storeController;
 	private DrinkSelectionItem[] items;
 	
-	public DrinkSelectionBox(Component container, TransactionController tc) {
-		transactionController = tc;
-		
-		// dummy data
-		items = new DrinkSelectionItem[5];
-		DrinkSelectionItem item1 = new DrinkSelectionItem("Coca-Cola", 75, false);
-		DrinkSelectionItem item2 = new DrinkSelectionItem("Fanta", 85, false);
-		DrinkSelectionItem item3 = new DrinkSelectionItem("Sarsi", 70, false);
-		DrinkSelectionItem item4 = new DrinkSelectionItem("Soya Bean", 60, true);
-		DrinkSelectionItem item5 = new DrinkSelectionItem("Coca-Cola", 75, false);
-		DrinkSelectionItem item6 = new DrinkSelectionItem("Soya Bean", 60, true);
-
-		item1.setEnabled(false);
-		item2.setEnabled(false);
-		item3.setEnabled(false);
-		item4.setEnabled(false);
-		item5.setEnabled(false);
-		item6.setEnabled(false);
-		
+	public DrinkSelectionBox(TransactionController tc) {
 		setLayout(new GridLayout(0, 1));
-		add(item1);
-		add(item2);
-		add(item3);
-		add(item4);
-		add(item5);
-		add(item6);
+		
+		transactionController = tc;
+		storeController = transactionController.getMainController().getStoreController();
+		
+		StoreItem[] storeItems = storeController.getStoreItems(Store.DRINK);
+		items = new DrinkSelectionItem[storeItems.length];
+		int i = 0;
+		for (StoreItem storeItem : storeItems) {
+			DrinksBrand drink = (DrinksBrand) storeItem.getContent();
+			DrinkSelectionItem drinkItem = new DrinkSelectionItem(i, drink.getName(), 
+					drink.getPrice(), storeItem.getQuantity() <= 0, new DrinkSelectionListener(tc));
+			add(drinkItem);
+			items[i++] = drinkItem;
+		}
+		
 	}
 }

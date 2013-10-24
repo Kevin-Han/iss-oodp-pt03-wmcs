@@ -24,15 +24,16 @@ public class DrinkDisplay extends Panel {
 
 	public final static String TITLE = "Quantity of Drinks Available";
 
+	private MaintenanceController maintenanceCtrl;
 	private StoreController storeCtrl;
-	private MaintenanceController mCtrl;
+	
 	private ButtonItemDisplay bi;
 	private LabelledDisplay price;
 	private int curIdx; //current displayed item index;
 
 	public DrinkDisplay(MaintenanceController mctrl) {
-		mCtrl = mctrl;
-		storeCtrl = mCtrl.getMainController().getStoreController();
+		maintenanceCtrl = mctrl;
+		storeCtrl = maintenanceCtrl.getMainController().getStoreController();
 
 		this.setLayout(new BorderLayout());
 		int len;
@@ -42,13 +43,13 @@ public class DrinkDisplay extends Panel {
 
 		bi = new ButtonItemDisplay(TITLE, items, len);
 
-		bi.addListener(new DrinkDisplayListener(mCtrl));
+		bi.addListener(new DrinkDisplayListener(maintenanceCtrl));
 		bi.clear();
 		price = new LabelledDisplay("Brand Price", 4, LabelledDisplay.FLOW);
 
 		PriceDisplayListener pdl;
 
-		pdl = new PriceDisplayListener(mCtrl);
+		pdl = new PriceDisplayListener(maintenanceCtrl);
 		price.addListener(pdl);
 		Panel tp = new Panel();
 		tp.setLayout(new FlowLayout(FlowLayout.CENTER));

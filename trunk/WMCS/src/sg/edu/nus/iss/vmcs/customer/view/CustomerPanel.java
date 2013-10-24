@@ -36,8 +36,8 @@ public class CustomerPanel extends Dialog {
 		
 		Panel topPanel = new Panel();
 		topPanel.setLayout(new BorderLayout());
-		coinInputBox = new CoinInputBox(this, null, cc);
-		drinkSelectionBox = new DrinkSelectionBox(this, cc);
+		coinInputBox = new CoinInputBox(null, cc);
+		drinkSelectionBox = new DrinkSelectionBox(cc);
 		topPanel.add("North", coinInputBox);
 		topPanel.add("South", drinkSelectionBox);
 		
@@ -87,5 +87,13 @@ public class CustomerPanel extends Dialog {
 
 	public void display() {
 		this.setVisible(true);
+	}
+	
+	public void closeDown() {
+		this.dispose();
+	}
+	
+	public void setActive(boolean isActive) {
+		this.setEnabled(isActive);
 	}
 }

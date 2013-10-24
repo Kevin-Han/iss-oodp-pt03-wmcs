@@ -59,7 +59,8 @@ public class MachinerySimulatorPanel extends Dialog {
 		this.add("Center", tp);
 		this.add("South", dp);
 		pack();
-
+		setLocation(100, 320);
+		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				machineryCtrl.closeMachineryPanel();

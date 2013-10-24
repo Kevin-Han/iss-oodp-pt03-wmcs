@@ -7,5 +7,10 @@ public class CoinReceiver {
 	public CoinReceiver(TransactionController transactionController) {
 		this.transactionController = transactionController;
 	}
+
+	public void startReceive() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
