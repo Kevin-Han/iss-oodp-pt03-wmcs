@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.vmcs.store;
 
+import java.util.Observable;
+
 /*
  * Copyright 2003 ISS.
  * The contents contained in this document may not be reproduced in any
@@ -15,7 +17,7 @@ package sg.edu.nus.iss.vmcs.store;
  * @author Olivo Miotto, Pang Ping Li
  */
 
-public abstract class Store {
+public abstract class Store extends Observable {
 	public final static int CASH  = 1;
 	public final static int DRINK = 2;
 
@@ -77,6 +79,8 @@ public abstract class Store {
 		if ((idx >= size) || (idx < 0))
 			return;
 		items[idx].setQuantity(qty);
+		setChanged();
+		notifyObservers(idx);
 	}
 
 	public int getStoreSize() {
