@@ -22,8 +22,16 @@ public class DrinkSelectionBox extends Panel {
 		DrinkSelectionItem item1 = new DrinkSelectionItem("Coca-Cola", 75, false);
 		DrinkSelectionItem item2 = new DrinkSelectionItem("Fanta", 85, false);
 		DrinkSelectionItem item3 = new DrinkSelectionItem("Sarsi", 70, false);
-		DrinkSelectionItem item4 = new DrinkSelectionItem("Soya Bean", 60, false);
+		DrinkSelectionItem item4 = new DrinkSelectionItem("Soya Bean", 60, true);
 		DrinkSelectionItem item5 = new DrinkSelectionItem("Coca-Cola", 75, false);
+		DrinkSelectionItem item6 = new DrinkSelectionItem("Soya Bean", 60, true);
+
+		item1.setEnabled(false);
+		item2.setEnabled(false);
+		item3.setEnabled(false);
+		item4.setEnabled(false);
+		item5.setEnabled(false);
+		item6.setEnabled(false);
 		
 		setLayout(new GridLayout(0, 1));
 		add(item1);
@@ -31,5 +39,6 @@ public class DrinkSelectionBox extends Panel {
 		add(item3);
 		add(item4);
 		add(item5);
+		add(item6);
 	}
 }

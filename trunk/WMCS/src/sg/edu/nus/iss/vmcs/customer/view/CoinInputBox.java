@@ -32,6 +32,8 @@ public class CoinInputBox extends Panel {
 		totalPanel.add("North", invalidCoin);
 		
 		final LabelledDisplay totalLabel = new LabelledDisplay("Total Money Inserted:", 5, LabelledDisplay.DEFAULT);
+		totalLabel.setEnabled(false);
+		totalLabel.setValue("0C");
 		totalPanel.add("South", totalLabel);
 		
 		
@@ -62,6 +64,7 @@ public class CoinInputBox extends Panel {
 		Panel coinInputPanel = new Panel();
 		add("Center", coinInputPanel);
 		coinInputPanel.setLayout(new GridLayout(1, 0));
+		
 		Button b1 = new Button("5C");
 		Button b2 = new Button("10C");
 		Button b3 = new Button("20C");
