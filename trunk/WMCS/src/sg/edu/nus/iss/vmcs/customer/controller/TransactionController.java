@@ -2,13 +2,16 @@ package sg.edu.nus.iss.vmcs.customer.controller;
 
 import java.awt.Frame;
 
+import sg.edu.nus.iss.vmcs.customer.view.CoinInputBox;
 import sg.edu.nus.iss.vmcs.customer.view.CustomerPanel;
+import sg.edu.nus.iss.vmcs.customer.view.DrinkSelectionBox;
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.system.MainController;
 import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
+import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
 
 public class TransactionController {
 
@@ -21,8 +24,8 @@ public class TransactionController {
 	
 	private boolean changeGiven;
 	private boolean drinkDispensed;
-	private int price;
-	private int selection;
+	private int selectedDrinkPrice;
+	private int selectedDrinkIndex;
 	
 	public TransactionController(MainController mc) {
 		mainController = mc;
@@ -42,6 +45,22 @@ public class TransactionController {
 	
 	public MainController getMainController() {
 		return mainController;
+	}
+	
+	public DrinkSelectionBox getDrinkSelectionBox() {
+		return customerPanel.getDrinkSelectionBox();
+	}
+	
+	public CoinInputBox getCoinInputBox() {
+		return customerPanel.getCoinInputBox();
+	}
+	
+	public LabelledDisplay getRefundBox() {
+		return customerPanel.getRefundBox();
+	}
+	
+	public LabelledDisplay getCanCollectionBox() {
+		return customerPanel.getCanCollectionBox();
 	}
 	
 	public void closeDown() {
@@ -76,20 +95,53 @@ public class TransactionController {
 		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, true);
 	}
 
-	public void startTransaction(int index) {
-		StoreItem storeItem = storeController.getStoreItem(Store.DRINK, index);
+	public void startTransaction(int drinkIndex) {
+		selectedDrinkIndex = drinkIndex;
+		StoreItem storeItem = storeController.getStoreItem(Store.DRINK, drinkIndex);
 		DrinksBrand drink = (DrinksBrand) storeItem.getContent();
-		int price = drink.getPrice();
-		System.out.println(drink.getName() + " (" + price + "C) selected");
+		selectedDrinkPrice = drink.getPrice();
+		System.out.println(drink.getName() + " (" + selectedDrinkPrice + "C) selected");
 		
 		changeGiver.resetChange();
 		dispenseController.resetCan();
 		changeGiver.displayChangeStatus();
 		
-		dispenseController.allowSelection(true);
+		
+		dispenseController.allowSelection(false);
 		
 		coinReceiver.startReceive();
 		
 	}
 
+	public void processMoneyReceived(int total) {
+		if (total >= selectedDrinkPrice) {
+			completeTransaction();
+		}
+		else
+			coinReceiver.continueReceive();
+	}
+	
+	public void completeTransaction() {
+		System.out.println("Completing transaction...");
+		dispenseController.dispenseDrink(selectedDrinkIndex);
+		
+		int change = getCoinReceiver().getTotalCash() - selectedDrinkPrice;
+		changeGiven = changeGiver.giveChange(change);
+		
+		coinReceiver.storeCash();
+		dispenseController.allowSelection(true);
+	}
+	
+	public void terminateFault() {
+		
+	}
+	
+	public void terminateTransaction() {
+		
+	}
+	
+	public void cancelTransaction() {
+		
+	}
+	
 }

@@ -33,4 +33,27 @@ public class DrinkSelectionBox extends Panel {
 		}
 		
 	}
+	
+	public void update(int brand, int quantity, int price, String name) {
+		
+		
+		if (quantity <= 0) {
+			items[brand].setEnabled(false);
+			items[brand].setItemState(true);
+		}
+			
+	}
+	
+	public void setState(int index, boolean isActive) {
+		
+	}
+	
+	public void setActive(boolean isActive) {
+		setEnabled(isActive);
+	}
+	
+	public void setItemState(int index, boolean isActive) {
+		
+	}
+	
 }

@@ -1,5 +1,10 @@
 package sg.edu.nus.iss.vmcs.customer.controller;
 
+import sg.edu.nus.iss.vmcs.store.DrinksBrand;
+import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
+import sg.edu.nus.iss.vmcs.store.Store;
+import sg.edu.nus.iss.vmcs.util.VMCSException;
+
 public class DispenseController {
 
 	private TransactionController transactionController;
@@ -9,21 +14,39 @@ public class DispenseController {
 	}
 
 	public void updateDrinkPanel() {
-		// TODO Auto-generated method stub
-		updateDrinkSelection(0);
+		
 	}
 	
 	public void allowSelection(boolean b) {
-		// TODO Auto-generated method stub
-		
+		transactionController.getDrinkSelectionBox().setActive(b);
+		updateDrinkPanel();
 	}
 
-	private void updateDrinkSelection(int selection) {
+	public void dispenseDrink(int selectedBrand) {
+		System.out.println("Dispensing drink...");
+		try {
+			transactionController.getMainController().getMachineryController().dispenseDrink(selectedBrand);
+		} catch (VMCSException e) {
+			e.printStackTrace();
+		}
 		
+		// update drink store display
+		
+		DrinksBrand drink = (DrinksBrand) transactionController.getMainController()
+				.getStoreController().getStoreItem(Store.DRINK, selectedBrand).getContent();
+		transactionController.getCanCollectionBox().setValue(drink.getName());
+		
+		updateDrinkSelection(selectedBrand);
+	}
+	
+	private void updateDrinkSelection(int index) {
+		DrinksStoreItem drinkItem = (DrinksStoreItem) transactionController.getMainController()
+				.getStoreController().getStoreItem(Store.DRINK, index);
+		DrinksBrand drink = (DrinksBrand) drinkItem.getContent();
+		transactionController.getDrinkSelectionBox().update(index, drinkItem.getQuantity(), drink.getPrice(), drink.getName());
 	}
 
 	public void resetCan() {
-		// TODO Auto-generated method stub
-		
+		transactionController.getCanCollectionBox().setValue("No Can");
 	}
 }
