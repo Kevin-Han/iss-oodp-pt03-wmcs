@@ -33,7 +33,7 @@ public class PriceDisplayListener implements ActionListener {
 		txt = (TextField) e.getSource();
 		sp = txt.getText();
 
-		ip = Integer.parseInt(sp);
+		ip = Integer.parseInt(sp.substring(0, sp.length()-1));
 
 		mctrl.setPrice(ip);
 	}

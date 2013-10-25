@@ -20,8 +20,6 @@ import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 
 public class CoinInputBox extends Panel {
 
-	private int[] coinWeights;
-	private int totalCash = 0;
 	private LabelledDisplay totalDisplay;
 	private WarningDisplay invalidCoin;
 	

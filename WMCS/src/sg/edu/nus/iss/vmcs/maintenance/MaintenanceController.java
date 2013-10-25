@@ -9,7 +9,6 @@ package sg.edu.nus.iss.vmcs.maintenance;
  */
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -36,10 +35,8 @@ public class MaintenanceController implements Observer {
 		am = new AccessManager(this);
 		
 		StoreController storeController = mCtrl.getStoreController();
-		Store cashStore = storeController.getStore(Store.CASH);
-		cashStore.addObserver(this);
-		Store drinkStore = storeController.getStore(Store.DRINK);
-		drinkStore.addObserver(this);
+		storeController.getStore(Store.CASH).addObserver(this);
+		storeController.getStore(Store.DRINK).addObserver(this);
 	}
 
 	public MainController getMainController() {

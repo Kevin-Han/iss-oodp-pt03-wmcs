@@ -13,9 +13,7 @@ import java.awt.Panel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import sg.edu.nus.iss.vmcs.customer.controller.CoinReceiver;
 import sg.edu.nus.iss.vmcs.customer.controller.TransactionController;
-import sg.edu.nus.iss.vmcs.maintenance.DrinkDisplay;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 

@@ -1,11 +1,13 @@
 package sg.edu.nus.iss.vmcs.customer.controller;
 
-import java.awt.Frame;
+import java.util.Observable;
+import java.util.Observer;
 
 import sg.edu.nus.iss.vmcs.customer.view.CoinInputBox;
 import sg.edu.nus.iss.vmcs.customer.view.CustomerPanel;
 import sg.edu.nus.iss.vmcs.customer.view.DrinkSelectionBox;
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
+import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
@@ -14,11 +16,12 @@ import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 
-public class TransactionController {
+public class TransactionController implements Observer {
 
 	private MainController mainController;
-	private CustomerPanel customerPanel;
 	private StoreController storeController;
+	private CustomerPanel customerPanel;
+	
 	private DispenseController dispenseController;
 	private CoinReceiver coinReceiver;
 	private ChangeGiver changeGiver;
@@ -31,6 +34,8 @@ public class TransactionController {
 	public TransactionController(MainController mc) {
 		mainController = mc;
 		storeController = mc.getStoreController();
+		storeController.getStore(Store.DRINK).addObserver(this);
+		
 		dispenseController = new DispenseController(this);
 		coinReceiver = new CoinReceiver(this);
 		changeGiver = new ChangeGiver(this);
@@ -38,34 +43,30 @@ public class TransactionController {
 		selectedDrinkIndex = -1;
 	}
 	
+	// model getters
 	public CoinReceiver getCoinReceiver() {
 		return coinReceiver;
 	}
-	
 	public ChangeGiver getChangeGiver() {
 		return changeGiver;
 	}
-	
 	public MainController getMainController() {
 		return mainController;
 	}
 	
+	// ui getters
 	public DrinkSelectionBox getDrinkSelectionBox() {
 		return customerPanel.getDrinkSelectionBox();
 	}
-	
 	public CoinInputBox getCoinInputBox() {
 		return customerPanel.getCoinInputBox();
 	}
-	
 	public LabelledDisplay getRefundBox() {
 		return customerPanel.getRefundBox();
 	}
-	
 	public LabelledDisplay getCanCollectionBox() {
 		return customerPanel.getCanCollectionBox();
 	}
-	
 	public WarningDisplay getNoChangeDisplay() {
 		return customerPanel.getNoChangeDisplay();
 	}
@@ -78,7 +79,7 @@ public class TransactionController {
 	public void displayCustomerPanel() {
 		SimulatorControlPanel scp = mainController.getSimulatorControlPanel();
 		if (customerPanel == null)
-			customerPanel = new CustomerPanel((Frame) scp, this);
+			customerPanel = new CustomerPanel(scp, this);
 		customerPanel.display();
 		
 		dispenseController.updateDrinkPanel();
@@ -90,7 +91,7 @@ public class TransactionController {
 	}
 
 	public void refreshCustomerPanel() {
-		//TODO
+		dispenseController.updateDrinkPanel();
 	}
 	
 	public void closeCustomerPanel() {
@@ -104,6 +105,9 @@ public class TransactionController {
 
 	public void startTransaction(int drinkIndex) {
 		selectedDrinkIndex = drinkIndex;
+		changeGiven = false;
+		drinkDispensed = false;
+		
 		StoreItem storeItem = storeController.getStoreItem(Store.DRINK, drinkIndex);
 		DrinksBrand drink = (DrinksBrand) storeItem.getContent();
 		selectedDrinkPrice = drink.getPrice();
@@ -112,7 +116,6 @@ public class TransactionController {
 		changeGiver.resetChange();
 		dispenseController.resetCan();
 		changeGiver.displayChangeStatus();
-		
 		
 		dispenseController.allowSelection(false);
 		
@@ -138,20 +141,26 @@ public class TransactionController {
 		
 		coinReceiver.storeCash();
 		dispenseController.allowSelection(true);
+		
 	}
 	
 	public void terminateFault() {
-		
+		// TODO
 	}
 	
 	public void terminateTransaction() {
-		
+		// TODO
 	}
 	
 	public void cancelTransaction() {
 		coinReceiver.stopReceive();
 		coinReceiver.refundCash();
 		dispenseController.allowSelection(true);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		refreshCustomerPanel();
 	}
 	
 }

@@ -35,9 +35,8 @@ public class DrinkSelectionBox extends Panel {
 	}
 	
 	public void update(int brand, int quantity, int price, String name) {
-		if (quantity <= 0) {
-			items[brand].setItemState(true);
-		}
+		boolean state = quantity <= 0;
+		items[brand].setItemState(state);
 	}
 	
 	public void setState(int index, boolean isActive) {

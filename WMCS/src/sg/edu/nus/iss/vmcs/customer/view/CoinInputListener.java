@@ -1,6 +1,5 @@
 package sg.edu.nus.iss.vmcs.customer.view;
 
-import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

@@ -1,9 +1,6 @@
 package sg.edu.nus.iss.vmcs.store;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
 /*
  * Copyright 2003 ISS.
