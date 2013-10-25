@@ -108,4 +108,8 @@ public class CustomerPanel extends Dialog {
 	public LabelledDisplay getCanCollectionBox() {
 		return canCollectionBox;
 	}
+	
+	public WarningDisplay getNoChangeDisplay() {
+		return noChange;
+	}
 }

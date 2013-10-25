@@ -12,6 +12,7 @@ import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.system.MainController;
 import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
+import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 
 public class TransactionController {
 
@@ -61,6 +62,10 @@ public class TransactionController {
 	
 	public LabelledDisplay getCanCollectionBox() {
 		return customerPanel.getCanCollectionBox();
+	}
+	
+	public WarningDisplay getNoChangeDisplay() {
+		return customerPanel.getNoChangeDisplay();
 	}
 	
 	public void closeDown() {
