@@ -20,7 +20,7 @@ import java.util.Observer;
  * @author Olivo Miotto, Pang Ping Li
  */
 
-public class StoreItem {
+public class StoreItem extends Observable {
 
 	private StoreObject content;
 	private int quantity;
@@ -40,6 +40,7 @@ public class StoreItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		notifyQuantityChange();
 	}
 
 	public int getQuantity() {
@@ -48,16 +49,23 @@ public class StoreItem {
 
 	public void store() {
 		quantity++;
+		notifyQuantityChange();
 	}
 	
 	public void decrement() {
 		quantity--;
 		if (quantity < 0)
 			quantity = 0;
+		notifyQuantityChange();
 	}
 
 	public void increment() {
 		quantity++;
+		notifyQuantityChange();
 	}
 	
+	private void notifyQuantityChange() {
+		setChanged();
+		notifyObservers();
+	}
 }

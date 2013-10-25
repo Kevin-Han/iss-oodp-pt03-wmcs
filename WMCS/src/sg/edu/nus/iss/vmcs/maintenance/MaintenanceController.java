@@ -180,12 +180,19 @@ public class MaintenanceController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println("Updating maintenance panel...");
-		int idx = (Integer) arg;
-		if (o instanceof CashStore) {
-			displayCoin(idx);
-		} else
-			displayDrinks(idx);
+		
+		if (o instanceof CashStoreItem) {
+			StoreItem[] items = mCtrl.getStoreController().getStoreItems(Store.CASH);
+			for (int i = 0; i < items.length; i++)
+				if (items[i] == o)
+					displayCoin(i);
+		} else {
+			StoreItem[] items = mCtrl.getStoreController().getStoreItems(Store.DRINK);
+			for (int i = 0; i < items.length; i++)
+				if (items[i] == o)
+					displayDrinks(i);
+		}
+			
 	}
-	
 
 }
