@@ -8,9 +8,18 @@ package sg.edu.nus.iss.vmcs.machinery;
  *
  */
 
-import sg.edu.nus.iss.vmcs.system.*;
-import sg.edu.nus.iss.vmcs.util.*;
-import sg.edu.nus.iss.vmcs.store.*;
+import java.util.Observable;
+import java.util.Observer;
+
+import sg.edu.nus.iss.vmcs.store.CashStoreItem;
+import sg.edu.nus.iss.vmcs.store.Coin;
+import sg.edu.nus.iss.vmcs.store.Store;
+import sg.edu.nus.iss.vmcs.store.StoreController;
+import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.system.MainController;
+import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
+import sg.edu.nus.iss.vmcs.util.MessageDialog;
+import sg.edu.nus.iss.vmcs.util.VMCSException;
 
 /**
  *
@@ -19,7 +28,7 @@ import sg.edu.nus.iss.vmcs.store.*;
  * @author Olivo Miotto, Pang Ping Li
  */
 
-public class MachineryController {
+public class MachineryController implements Observer {
 
 	public MainController mainCtrl;
 	public StoreController storeCtrl;
@@ -135,4 +144,18 @@ public class MachineryController {
 			ml.getCashStoreDisplay().update();
 	}
 
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("Updating machinery panel...");
+		try {
+			if (o instanceof CashStoreItem) {
+				displayCoinStock();
+			} else {
+				displayDrinkStock();
+			}
+		} catch (VMCSException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
