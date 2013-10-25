@@ -34,6 +34,8 @@ public class TransactionController {
 		dispenseController = new DispenseController(this);
 		coinReceiver = new CoinReceiver(this);
 		changeGiver = new ChangeGiver(this);
+		
+		selectedDrinkIndex = -1;
 	}
 	
 	public CoinReceiver getCoinReceiver() {
@@ -128,7 +130,8 @@ public class TransactionController {
 	
 	public void completeTransaction() {
 		System.out.println("Completing transaction...");
-		dispenseController.dispenseDrink(selectedDrinkIndex);
+		drinkDispensed = dispenseController.dispenseDrink(selectedDrinkIndex);
+		selectedDrinkIndex = -1;
 		
 		int change = getCoinReceiver().getTotalCash() - selectedDrinkPrice;
 		changeGiven = changeGiver.giveChange(change);
@@ -146,7 +149,9 @@ public class TransactionController {
 	}
 	
 	public void cancelTransaction() {
-		
+		coinReceiver.stopReceive();
+		coinReceiver.refundCash();
+		dispenseController.allowSelection(true);
 	}
 	
 }

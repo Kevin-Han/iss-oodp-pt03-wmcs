@@ -22,12 +22,13 @@ public class DispenseController {
 		updateDrinkPanel();
 	}
 
-	public void dispenseDrink(int selectedBrand) {
+	public boolean dispenseDrink(int selectedBrand) {
 		System.out.println("Dispensing drink...");
 		try {
 			transactionController.getMainController().getMachineryController().dispenseDrink(selectedBrand);
 		} catch (VMCSException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 		// update drink store display
@@ -37,6 +38,7 @@ public class DispenseController {
 		transactionController.getCanCollectionBox().setValue(drink.getName());
 		
 		updateDrinkSelection(selectedBrand);
+		return true;
 	}
 	
 	private void updateDrinkSelection(int index) {

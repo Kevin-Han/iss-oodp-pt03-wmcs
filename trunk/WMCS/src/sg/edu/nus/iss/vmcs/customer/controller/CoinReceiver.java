@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import sg.edu.nus.iss.vmcs.customer.view.CoinInputBox;
 import sg.edu.nus.iss.vmcs.store.CashStore;
 import sg.edu.nus.iss.vmcs.store.Coin;
 import sg.edu.nus.iss.vmcs.store.Store;
@@ -61,19 +62,25 @@ public class CoinReceiver {
 			} catch (VMCSException e) {
 				e.printStackTrace();
 			}
-		transactionController.getCoinInputBox().getTotalDisplay().setValue("0C");
+		CoinInputBox coininputBox = transactionController.getCoinInputBox();
+		coininputBox.getTotalDisplay().setValue("0C");
+		coininputBox.setActive(false);
 		return true;
 	}
 	
 	public void stopReceive() {
-		
+		setActive(false);
 	}
 	
 	public void refundCash() {
-		
+		transactionController.getRefundBox().setValue(totalCash + "C");
+		totalCash = 0;
+		coins = null;
+		transactionController.getCoinInputBox().getTotalDisplay().setValue(totalCash + "C");
+		transactionController.getCoinInputBox().getInvalidCoinDisplay().setState(false);
 	}
 	
 	public void setActive(boolean isActive) {
-		
+		transactionController.getCoinInputBox().setActive(false);
 	}
 }
