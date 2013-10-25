@@ -1,7 +1,6 @@
 package sg.edu.nus.iss.vmcs.customer.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import sg.edu.nus.iss.vmcs.customer.view.CoinInputBox;
@@ -17,6 +16,8 @@ public class CoinReceiver {
 	private List<Coin> coins;
 	private int totalCash;
 	
+	private CoinInputBox coinInputBox;
+	
 	public CoinReceiver(TransactionController transactionController) {
 		this.transactionController = transactionController;
 	}
@@ -26,33 +27,35 @@ public class CoinReceiver {
 	}
 	
 	public void startReceive() {
+		coinInputBox = transactionController.getCoinInputBox();
 		coins = new ArrayList<Coin>();
 		totalCash = 0;
-		transactionController.getCoinInputBox().setActive(true);
+		coinInputBox.setActive(true);
 	}
 	
 	public void receiveCoin(double weight) {
 		StoreController storeController = transactionController.getMainController().getStoreController();
 		CashStore cashStore = (CashStore) storeController.getStore(Store.CASH);
 		int coinIndex = cashStore.findCashStoreIndex(new Coin(0, weight));
+		
 		if (coinIndex >= 0) { // valid coin
 			Coin coin = (Coin) storeController.getStoreItem(Store.CASH, coinIndex).getContent();
 			coins.add(coin);
 			
 			int value = coin.getValue();
 			totalCash += value;
-			transactionController.getCoinInputBox().getTotalDisplay().setValue(totalCash + "C");
+			coinInputBox.getTotalDisplay().setValue(totalCash + "C");
 			
 			transactionController.processMoneyReceived(totalCash);
 		} else { // invalid coin
-			transactionController.getCoinInputBox().getInvalidCoinDisplay().setState(true);
+			coinInputBox.getInvalidCoinDisplay().setState(true);
 			transactionController.getRefundBox().setValue("Invalid Coin");
-			transactionController.getCoinInputBox().setActive(false);
+			coinInputBox.setActive(false);
 		}
 	}
 	
 	public void continueReceive() {
-		transactionController.getCoinInputBox().setActive(true);
+		coinInputBox.setActive(true);
 	}
 	
 	public boolean storeCash() {
@@ -62,9 +65,8 @@ public class CoinReceiver {
 			} catch (VMCSException e) {
 				e.printStackTrace();
 			}
-		CoinInputBox coininputBox = transactionController.getCoinInputBox();
-		coininputBox.getTotalDisplay().setValue("0C");
-		coininputBox.setActive(false);
+		coinInputBox.getTotalDisplay().setValue("0C");
+		coinInputBox.setActive(false);
 		return true;
 	}
 	
@@ -76,11 +78,11 @@ public class CoinReceiver {
 		transactionController.getRefundBox().setValue(totalCash + "C");
 		totalCash = 0;
 		coins = null;
-		transactionController.getCoinInputBox().getTotalDisplay().setValue(totalCash + "C");
-		transactionController.getCoinInputBox().getInvalidCoinDisplay().setState(false);
+		coinInputBox.getTotalDisplay().setValue(totalCash + "C");
+		coinInputBox.getInvalidCoinDisplay().setState(false);
 	}
 	
 	public void setActive(boolean isActive) {
-		transactionController.getCoinInputBox().setActive(false);
+		coinInputBox.setActive(false);
 	}
 }

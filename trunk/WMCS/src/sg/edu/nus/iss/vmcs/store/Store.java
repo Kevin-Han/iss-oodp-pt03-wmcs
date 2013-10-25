@@ -79,8 +79,6 @@ public abstract class Store {
 		if ((idx >= size) || (idx < 0))
 			return;
 		items[idx].setQuantity(qty);
-//		setChanged();
-//		notifyObservers(idx);
 	}
 
 	public int getStoreSize() {
