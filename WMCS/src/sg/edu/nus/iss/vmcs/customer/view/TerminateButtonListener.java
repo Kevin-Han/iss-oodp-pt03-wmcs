@@ -15,8 +15,8 @@ public class TerminateButtonListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("Transaction terminated, cash returned");
+		System.out.println("Cancelling transaction...");
+		transactionController.cancelTransaction();
 	}
 
 }

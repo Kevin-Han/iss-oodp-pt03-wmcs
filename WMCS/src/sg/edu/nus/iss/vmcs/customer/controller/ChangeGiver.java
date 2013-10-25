@@ -46,6 +46,7 @@ public class ChangeGiver {
 				machineryController.giveChange(i, numOfCoins);
 			} catch (VMCSException e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
 		transactionController.getRefundBox().setValue(changeGiven + "C");

@@ -41,7 +41,7 @@ public class DrinkSelectionBox extends Panel {
 	}
 	
 	public void setState(int index, boolean isActive) {
-		
+		items[index].setEnabled(isActive);
 	}
 	
 	public void setActive(boolean isActive) {
@@ -49,7 +49,7 @@ public class DrinkSelectionBox extends Panel {
 	}
 	
 	public void setItemState(int index, boolean isActive) {
-		
+		items[index].setItemState(isActive);
 	}
 	
 }
