@@ -8,6 +8,7 @@ import sg.edu.nus.iss.vmcs.store.CashStore;
 import sg.edu.nus.iss.vmcs.store.Coin;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
+import sg.edu.nus.iss.vmcs.util.VMCSException;
 
 public class CoinReceiver {
 
@@ -54,7 +55,14 @@ public class CoinReceiver {
 	}
 	
 	public boolean storeCash() {
-		return false;
+		for (Coin coin : coins)
+			try {
+				transactionController.getMainController().getMachineryController().storeCoin(coin);
+			} catch (VMCSException e) {
+				e.printStackTrace();
+			}
+		transactionController.getCoinInputBox().getTotalDisplay().setValue("0C");
+		return true;
 	}
 	
 	public void stopReceive() {

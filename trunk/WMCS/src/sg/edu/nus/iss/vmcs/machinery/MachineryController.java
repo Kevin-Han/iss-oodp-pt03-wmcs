@@ -125,7 +125,7 @@ public class MachineryController {
 	public void dispenseDrink(int idx) throws VMCSException {
 		storeCtrl.dispenseDrink(idx);
 		if (ml != null)
-			ml.getCashStoreDisplay().update();
+			ml.getDrinksStoreDisplay().update();
 
 	}
 
