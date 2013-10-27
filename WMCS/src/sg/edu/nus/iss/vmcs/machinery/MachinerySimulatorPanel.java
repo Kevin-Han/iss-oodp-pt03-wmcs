@@ -8,10 +8,19 @@ package sg.edu.nus.iss.vmcs.machinery;
  *
  */
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Checkbox;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import sg.edu.nus.iss.vmcs.store.*;
+import sg.edu.nus.iss.vmcs.customer.view.VendingMachinePanel;
+import sg.edu.nus.iss.vmcs.store.Store;
+import sg.edu.nus.iss.vmcs.store.StoreController;
 
 /**
  *
@@ -20,12 +29,10 @@ import sg.edu.nus.iss.vmcs.store.*;
  * @author Olivo Miotto, Pang Ping Li
  */
 
-public class MachinerySimulatorPanel extends Dialog {
+public class MachinerySimulatorPanel extends VendingMachinePanel {
 
 	private static final String TITLE = "Machinery Panel";
 
-	private StoreViewer cashDisplay;
-	private StoreViewer drinksDisplay;
 	private Checkbox doorDisplay;
 	private StoreController storeCtrl;
 	private MachineryController machineryCtrl;
@@ -40,13 +47,13 @@ public class MachinerySimulatorPanel extends Dialog {
 		lb.setFont(new Font("Helvetica", Font.BOLD, 24));
 		lb.setAlignment(Label.CENTER);
 
-		cashDisplay = new StoreViewer(Store.CASH, storeCtrl);
-		drinksDisplay = new StoreViewer(Store.DRINK, storeCtrl);
+		coinPanel = setUpCoinPanel();
+		drinkPanel = setUpDrinkPanel();
 
 		Panel tp = new Panel();
 		tp.setLayout(new GridLayout(0, 1));
-		tp.add(cashDisplay);
-		tp.add(drinksDisplay);
+		tp.add(coinPanel);
+		tp.add(drinkPanel);
 
 		Panel dp = new Panel();
 		doorDisplay = new Checkbox();
@@ -77,11 +84,11 @@ public class MachinerySimulatorPanel extends Dialog {
 	}
 
 	public StoreViewer getCashStoreDisplay() {
-		return cashDisplay;
+		return (StoreViewer) coinPanel;
 	}
 
 	public StoreViewer getDrinksStoreDisplay() {
-		return drinksDisplay;
+		return (StoreViewer) drinkPanel;
 	}
 
 	public void setDoorState(boolean state) {
@@ -91,9 +98,19 @@ public class MachinerySimulatorPanel extends Dialog {
 	}
 
 	public void setActive(boolean state) {
-		cashDisplay.setActive(state);
-		drinksDisplay.setActive(state);
+		getCashStoreDisplay().setActive(state);
+		getDrinksStoreDisplay().setActive(state);
 		doorDisplay.setEnabled(state);
+	}
+
+	@Override
+	protected Panel setUpCoinPanel() {
+		return new StoreViewer(Store.CASH, storeCtrl);
+	}
+
+	@Override
+	protected Panel setUpDrinkPanel() {
+		return new StoreViewer(Store.DRINK, storeCtrl);
 	}
 
 }

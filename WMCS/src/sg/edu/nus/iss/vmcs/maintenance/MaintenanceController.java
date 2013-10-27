@@ -77,7 +77,8 @@ public class MaintenanceController implements Observer {
 		CashStoreItem item;
 		try {
 			item = (CashStoreItem) sctrl.getStoreItem(Store.CASH, idx);
-			mpanel.getCoinDisplay().displayQty(idx, item.getQuantity());
+			if (mpanel != null)
+				mpanel.getCoinDisplay().displayQty(idx, item.getQuantity());
 		} catch (VMCSException e) {
 			System.out.println("MaintenanceController.displayCoin:" + e);
 		}
@@ -91,8 +92,10 @@ public class MaintenanceController implements Observer {
 		try {
 			item = (DrinksStoreItem) sctrl.getStoreItem(Store.DRINK, idx);
 			DrinksBrand db = (DrinksBrand) item.getContent();
-			mpanel.getDrinksDisplay().displayQty(idx, item.getQuantity());
-			mpanel.displayPrice(db.getPrice());
+			if (mpanel != null) {
+				mpanel.getDrinksDisplay().displayQty(idx, item.getQuantity());
+				mpanel.displayPrice(db.getPrice());
+			}
 		} catch (VMCSException e) {
 			System.out.println("MaintenanceController.displayDrink:" + e);
 		}

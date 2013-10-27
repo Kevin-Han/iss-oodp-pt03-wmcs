@@ -31,7 +31,7 @@ public class CustomerPanelBuilder implements UIBuilder {
 		
 		customerPanel.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				tc.closeCustomerPanel();
+				tc.closePanel();
 			}
 		});
 		
