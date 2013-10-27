@@ -36,8 +36,10 @@ public class ChangeGiver {
 		System.out.println("Change to be given: " + change + "C");
 		
 		int changeGiven = 0;
-		MachineryController machineryController = transactionController.getMainController().getMachineryController();
-		CashStore cashStore = (CashStore) transactionController.getMainController().getStoreController().getStore(Store.CASH);
+		MachineryController machineryController = transactionController
+				.getMainController().getMachineryController();
+		CashStore cashStore = (CashStore) transactionController
+				.getMainController().getStoreController().getStore(Store.CASH);
 		
 		int size = cashStore.getStoreSize();
 		for (int i = size-1; i >= 0; i--) {
@@ -66,8 +68,8 @@ public class ChangeGiver {
 		if (change > changeGiven) {
 			System.out.println("Short of " + (change-changeGiven) + "C");
 			noChangeDisplay.setState(true);
+			return false;
 		}
-			
 		return true;
 	}
 }
