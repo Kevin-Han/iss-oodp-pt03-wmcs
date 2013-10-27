@@ -15,7 +15,6 @@ public class TerminateButtonListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Cancelling transaction...");
 		transactionController.cancelTransaction();
 	}
 

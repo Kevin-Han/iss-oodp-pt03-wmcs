@@ -12,38 +12,32 @@ public class SuspendTransactionState implements TransactionState {
 
 	@Override
 	public void startTransaction(int drinkIndex) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Invalid operation..");
 	}
 
 	@Override
 	public void processMoneyReceived(int total) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Invalid operation..");
 	}
 
 	@Override
 	public void completeTransaction() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Invalid operation..");
 	}
 
 	@Override
 	public void cancelTransaction() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Invalid operation..");
 	}
 
 	@Override
 	public void terminateFault() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Invalid operation..");
 	}
 
 	@Override
 	public void terminateTransaction() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Invalid operation..");
 	}
 	
 }

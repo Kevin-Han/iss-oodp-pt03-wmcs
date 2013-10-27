@@ -50,7 +50,7 @@ public class TransactionController implements Observer {
 		coinReceiver = new CoinReceiver(this);
 		changeGiver = new ChangeGiver(this);
 		
-		//selectedDrinkIndex = -1;
+		selectedDrinkIndex = -1;
 		
 		// initialize states
 		selectDrinkState = new SelectDrinkState(this);
@@ -62,6 +62,7 @@ public class TransactionController implements Observer {
 	
 	// state setter & getters
 	public void setTransactionState(TransactionState newState) {
+		System.out.println("Trasition to " + newState.getClass().getName() + "......");
 		currentState = newState;
 	}
 	public TransactionState getSelectDrinkState() {
@@ -150,14 +151,11 @@ public class TransactionController implements Observer {
 	//		b.buildDrinkPanel(null);
 	//		b.buildOtherPanel();
 	//		customerPanel = b.getUI();
-		customerPanel.display();
 		
+		customerPanel.display();
 		dispenseController.updateDrinkPanel();
 		dispenseController.allowSelection(true);
 		changeGiver.displayChangeStatus();
-		
-		// redundant, kept to align with design doc
-		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, false);
 	}
 
 	public void refreshCustomerPanel() {

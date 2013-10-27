@@ -45,7 +45,10 @@ public class CompleteTransactionState implements TransactionState {
 		dispenseController.allowSelection(true);
 		
 		// state transition
-		controller.setTransactionState(controller.getSelectDrinkState());
+		if (changeGiven)
+			controller.setTransactionState(controller.getSelectDrinkState());
+		else
+			controller.setTransactionState(controller.getSuspendTxnState());
 	}
 
 	@Override
@@ -55,12 +58,12 @@ public class CompleteTransactionState implements TransactionState {
 
 	@Override
 	public void terminateFault() {
-		
+		// TODO
 	}
 
 	@Override
 	public void terminateTransaction() {
-		
+		// TODO
 	}
 
 }
