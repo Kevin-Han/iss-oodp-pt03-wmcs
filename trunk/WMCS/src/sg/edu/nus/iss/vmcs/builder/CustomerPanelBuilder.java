@@ -1,4 +1,4 @@
-package sg.edu.nus.iss.vmcs.customer.view;
+package sg.edu.nus.iss.vmcs.builder;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -11,9 +11,12 @@ import java.awt.Panel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import sg.edu.nus.iss.vmcs.builder.UIBuilder;
 import sg.edu.nus.iss.vmcs.customer.controller.Controller;
 import sg.edu.nus.iss.vmcs.customer.controller.TransactionController;
+import sg.edu.nus.iss.vmcs.customer.view.CoinInputBox;
+import sg.edu.nus.iss.vmcs.customer.view.CustomerPanel;
+import sg.edu.nus.iss.vmcs.customer.view.DrinkSelectionBox;
+import sg.edu.nus.iss.vmcs.customer.view.TerminateButtonListener;
 import sg.edu.nus.iss.vmcs.store.CashStoreItem;
 import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;

@@ -3,11 +3,15 @@ package sg.edu.nus.iss.vmcs.customer.controller;
 import java.util.Observable;
 import java.util.Observer;
 
+import sg.edu.nus.iss.vmcs.customer.controller.state.CompleteTransactionState;
+import sg.edu.nus.iss.vmcs.customer.controller.state.InsertCoinState;
+import sg.edu.nus.iss.vmcs.customer.controller.state.SelectDrinkState;
+import sg.edu.nus.iss.vmcs.customer.controller.state.SuspendTransactionState;
+import sg.edu.nus.iss.vmcs.customer.controller.state.TransactionState;
 import sg.edu.nus.iss.vmcs.customer.view.CoinInputBox;
 import sg.edu.nus.iss.vmcs.customer.view.CustomerPanel;
 import sg.edu.nus.iss.vmcs.customer.view.DrinkSelectionBox;
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
-import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
@@ -31,6 +35,12 @@ public class TransactionController implements Observer {
 	private int selectedDrinkPrice;
 	private int selectedDrinkIndex;
 	
+	private TransactionState selectDrinkState;
+	private TransactionState insetCoinState;
+	private TransactionState completeTxnState;
+	private TransactionState suspendTxnState;
+	private TransactionState currentState;
+	
 	public TransactionController(MainController mc) {
 		mainController = mc;
 		storeController = mc.getStoreController();
@@ -40,9 +50,33 @@ public class TransactionController implements Observer {
 		coinReceiver = new CoinReceiver(this);
 		changeGiver = new ChangeGiver(this);
 		
-		selectedDrinkIndex = -1;
+		//selectedDrinkIndex = -1;
+		
+		// initialize states
+		selectDrinkState = new SelectDrinkState(this);
+		insetCoinState = new InsertCoinState(this);
+		completeTxnState = new CompleteTransactionState(this);
+		suspendTxnState = new SuspendTransactionState(this);
+		currentState = selectDrinkState;
 	}
 	
+	// state setter & getters
+	public void setTransactionState(TransactionState newState) {
+		currentState = newState;
+	}
+	public TransactionState getSelectDrinkState() {
+		return selectDrinkState;
+	}
+	public TransactionState getInsetCoinState() {
+		return insetCoinState;
+	}
+	public TransactionState getCompleteTxnState() {
+		return completeTxnState;
+	}
+	public TransactionState getSuspendTxnState() {
+		return suspendTxnState;
+	}
+
 	// model getters
 	public CoinReceiver getCoinReceiver() {
 		return coinReceiver;
@@ -50,10 +84,39 @@ public class TransactionController implements Observer {
 	public ChangeGiver getChangeGiver() {
 		return changeGiver;
 	}
+	public DispenseController getDispenseController() {
+		return dispenseController;
+	}
 	public MainController getMainController() {
 		return mainController;
 	}
 	
+	// attr setters & getters
+	public boolean isChangeGiven() {
+		return changeGiven;
+	}
+	public void setChangeGiven(boolean changeGiven) {
+		this.changeGiven = changeGiven;
+	}
+	public boolean isDrinkDispensed() {
+		return drinkDispensed;
+	}
+	public void setDrinkDispensed(boolean drinkDispensed) {
+		this.drinkDispensed = drinkDispensed;
+	}
+	public int getSelectedDrinkPrice() {
+		return selectedDrinkPrice;
+	}
+	public void setSelectedDrinkPrice(int selectedDrinkPrice) {
+		this.selectedDrinkPrice = selectedDrinkPrice;
+	}
+	public int getSelectedDrinkIndex() {
+		return selectedDrinkIndex;
+	}
+	public void setSelectedDrinkIndex(int selectedDrinkIndex) {
+		this.selectedDrinkIndex = selectedDrinkIndex;
+	}
+
 	// ui getters
 	public DrinkSelectionBox getDrinkSelectionBox() {
 		return customerPanel.getDrinkSelectionBox();
@@ -71,6 +134,7 @@ public class TransactionController implements Observer {
 		return customerPanel.getNoChangeDisplay();
 	}
 	
+	// ui functions
 	public void closeDown() {
 		if (customerPanel != null)
 			customerPanel.dispose();
@@ -109,61 +173,31 @@ public class TransactionController implements Observer {
 		scp.setActive(SimulatorControlPanel.ACT_CUSTOMER, true);
 	}
 
+	// transaction functions
 	public void startTransaction(int drinkIndex) {
-		selectedDrinkIndex = drinkIndex;
-		changeGiven = false;
-		drinkDispensed = false;
-		
-		StoreItem storeItem = storeController.getStoreItem(Store.DRINK, drinkIndex);
-		DrinksBrand drink = (DrinksBrand) storeItem.getContent();
-		selectedDrinkPrice = drink.getPrice();
-		System.out.println(drink.getName() + " (" + selectedDrinkPrice + "C) selected");
-		
-		changeGiver.resetChange();
-		dispenseController.resetCan();
-		changeGiver.displayChangeStatus();
-		
-		dispenseController.allowSelection(false);
-		
-		coinReceiver.startReceive();
-		
+		currentState.startTransaction(drinkIndex);
 	}
 
 	public void processMoneyReceived(int total) {
-		if (total >= selectedDrinkPrice) {
-			completeTransaction();
-		}
-		else
-			coinReceiver.continueReceive();
+		currentState.processMoneyReceived(total);
 	}
 	
 	public void completeTransaction() {
-		System.out.println("Completing transaction...");
-		drinkDispensed = dispenseController.dispenseDrink(selectedDrinkIndex);
-		selectedDrinkIndex = -1;
-		
-		int change = getCoinReceiver().getTotalCash() - selectedDrinkPrice;
-		changeGiven = changeGiver.giveChange(change);
-		
-		coinReceiver.storeCash();
-		dispenseController.allowSelection(true);
-		
-	}
-	
-	public void terminateFault() {
-		// TODO
-	}
-	
-	public void terminateTransaction() {
-		// TODO
+		currentState.completeTransaction();
 	}
 	
 	public void cancelTransaction() {
-		coinReceiver.stopReceive();
-		coinReceiver.refundCash();
-		dispenseController.allowSelection(true);
+		currentState.cancelTransaction();
 	}
-
+	
+	public void terminateFault() {
+		currentState.terminateFault();
+	}
+	
+	public void terminateTransaction() {
+		currentState.terminateTransaction();
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		refreshCustomerPanel();
