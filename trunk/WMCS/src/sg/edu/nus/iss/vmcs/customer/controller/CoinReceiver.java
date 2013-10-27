@@ -66,6 +66,8 @@ public class CoinReceiver {
 				e.printStackTrace();
 			}
 		coinInputBox.getTotalDisplay().setValue("0C");
+		coins = null;
+		totalCash = 0;
 		coinInputBox.setActive(false);
 		return true;
 	}

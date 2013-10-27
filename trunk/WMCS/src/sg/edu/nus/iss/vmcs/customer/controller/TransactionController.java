@@ -16,7 +16,7 @@ import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 
-public class TransactionController implements Observer, Controller {
+public class TransactionController implements Observer {
 
 	private MainController mainController;
 	private StoreController storeController;
@@ -100,7 +100,7 @@ public class TransactionController implements Observer, Controller {
 		dispenseController.updateDrinkPanel();
 	}
 	
-	public void closeCustomerPanel() {
+	public void closePanel() {
 		if (customerPanel == null)
 			return;
 		

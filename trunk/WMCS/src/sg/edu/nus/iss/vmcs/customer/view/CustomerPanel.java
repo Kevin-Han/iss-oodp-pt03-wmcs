@@ -22,8 +22,6 @@ public class CustomerPanel extends VendingMachinePanel {
 	public static final String TITLE = "VIMTO Soft Drink Dispenser";
 	private TransactionController transactionControl;
 	
-	private Panel coinInputBox;
-	private Panel drinkSelectionBox;
 	private WarningDisplay noChange;
 	private LabelledDisplay refundBox;
 	private LabelledDisplay canCollectionBox;
@@ -41,11 +39,11 @@ public class CustomerPanel extends VendingMachinePanel {
 		topPanel.setLayout(new BorderLayout());
 		
 		// use factory method
-		coinInputBox = setUpCoinPanel();
-		drinkSelectionBox = setUpDrinkPanel();
+		coinPanel = setUpCoinPanel();
+		drinkPanel = setUpDrinkPanel();
 		
-		topPanel.add("North", coinInputBox);
-		topPanel.add("South", drinkSelectionBox);
+		topPanel.add("North", coinPanel);
+		topPanel.add("South", drinkPanel);
 		
 		Panel bottomPanel = new Panel();
 		bottomPanel.setLayout(new GridLayout(0, 1));
@@ -78,7 +76,7 @@ public class CustomerPanel extends VendingMachinePanel {
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				transactionControl.closeCustomerPanel();
+				transactionControl.closePanel();
 			}
 		});
 	}
@@ -96,11 +94,11 @@ public class CustomerPanel extends VendingMachinePanel {
 	}
 
 	public DrinkSelectionBox getDrinkSelectionBox() {
-		return (DrinkSelectionBox)drinkSelectionBox;
+		return (DrinkSelectionBox)drinkPanel;
 	}
 	
 	public CoinInputBox getCoinInputBox() {
-		return (CoinInputBox) coinInputBox;
+		return (CoinInputBox) coinPanel;
 	}
 	
 	public LabelledDisplay getRefundBox() {
@@ -116,11 +114,11 @@ public class CustomerPanel extends VendingMachinePanel {
 	}
 
 	public void setCoinInputBox(CoinInputBox coinInputBox) {
-		this.coinInputBox = coinInputBox;
+		this.coinPanel = coinInputBox;
 	}
 
 	public void setDrinkSelectionBox(DrinkSelectionBox drinkSelectionBox) {
-		this.drinkSelectionBox = drinkSelectionBox;
+		this.drinkPanel = drinkSelectionBox;
 	}
 
 	public void setNoChange(WarningDisplay noChange) {

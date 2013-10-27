@@ -8,10 +8,21 @@ package sg.edu.nus.iss.vmcs.maintenance;
  *
  */
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.Panel;
 
-import sg.edu.nus.iss.vmcs.store.*;
-import sg.edu.nus.iss.vmcs.util.*;
+import sg.edu.nus.iss.vmcs.customer.view.VendingMachinePanel;
+import sg.edu.nus.iss.vmcs.store.Coin;
+import sg.edu.nus.iss.vmcs.store.Store;
+import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
+import sg.edu.nus.iss.vmcs.util.VMCSException;
+import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 
 /**
  *
@@ -20,7 +31,7 @@ import sg.edu.nus.iss.vmcs.util.*;
  * @author Olivo Miotto, Pang Ping Li
  */
 
-public class MaintenancePanel extends Dialog {
+public class MaintenancePanel extends VendingMachinePanel {
 	public final static int WORKING = 1;
 	public final static int PSWD    = 2;
 	public final static int DIALOG  = 3;
@@ -29,8 +40,6 @@ public class MaintenancePanel extends Dialog {
 	private LabelledDisplay password;
 	private LabelledDisplay collectCash;
 	private Button exitBtn;
-	private CoinDisplay cDisplay; // need to be access from other class.
-	private DrinkDisplay dDisplay; // need to be access from other class.
 	private ButtonItem totalCash;
 	private Button transferCash;
 	private WarningDisplay validPswd;
@@ -68,8 +77,8 @@ public class MaintenancePanel extends Dialog {
 		Panel tpc = new Panel();
 		tpc.setLayout(new GridLayout(0, 1));
 
-		cDisplay = new CoinDisplay(mctrl);
-		dDisplay = new DrinkDisplay(mctrl);
+		coinPanel = setUpCoinPanel();
+		drinkPanel = setUpDrinkPanel();
 
 		Panel tp5 = new Panel();
 		tp5.setLayout(new GridLayout(0, 1));
@@ -99,8 +108,8 @@ public class MaintenancePanel extends Dialog {
 		tpc.setLayout(new BorderLayout());
 		Panel pp = new Panel();
 		pp.setLayout(new GridLayout(1, 2));
-		pp.add(cDisplay);
-		pp.add(dDisplay);
+		pp.add(coinPanel);
+		pp.add(drinkPanel);
 		tpc.add("Center", pp);
 		tpc.add("South", tp5);
 
@@ -112,24 +121,23 @@ public class MaintenancePanel extends Dialog {
 		setLocation(720, 100);
 	}
 
-	public void display() {
-		System.out.println("MaintenancePanel: before display");
-		this.setVisible(true);
-		System.out.println("MaintenancePanel: after display");
-
-	}
-
-	public void closeDown() {
-		dispose();
-
-	}
+//	public void display() {
+//		System.out.println("MaintenancePanel: before display");
+//		this.setVisible(true);
+//		System.out.println("MaintenancePanel: after display");
+//
+//	}
+//
+//	public void closeDown() {
+//		dispose();
+//	}
 
 	public CoinDisplay getCoinDisplay() {
-		return cDisplay;
+		return (CoinDisplay) coinPanel;
 	}
 
 	public DrinkDisplay getDrinksDisplay() {
-		return dDisplay;
+		return (DrinkDisplay) drinkPanel;
 	}
 
 	public void displayPasswordState(boolean st) {
@@ -153,8 +161,8 @@ public class MaintenancePanel extends Dialog {
 				break;
 			case WORKING :
 				collectCash.setActive(st);
-				cDisplay.setActive(st);
-				dDisplay.setActive(st);
+				getCoinDisplay().setActive(st);
+				getDrinksDisplay().setActive(st);
 				totalCash.setActive(st);
 				transferCash.setEnabled(st);
 				break;
@@ -165,7 +173,7 @@ public class MaintenancePanel extends Dialog {
 	}
 
 	public int getCurIdx() {
-		return dDisplay.getCurIdx();
+		return getDrinksDisplay().getCurIdx();
 	}
 
 	public void displayTotalCash(int tc) {
@@ -189,9 +197,9 @@ public class MaintenancePanel extends Dialog {
 	public void updateQtyDisplay(int type, int idx, int qty)
 		throws VMCSException {
 		if (type == Store.CASH) {
-			cDisplay.displayQty(idx, qty);
+			getCoinDisplay().displayQty(idx, qty);
 		} else
-			dDisplay.displayQty(idx, qty);
+			getDrinksDisplay().displayQty(idx, qty);
 	}
 
 	/**
@@ -202,9 +210,9 @@ public class MaintenancePanel extends Dialog {
 		throws VMCSException {
 		int curIdx;
 		if (type == Store.CASH)
-			curIdx = cDisplay.getCurIdx();
+			curIdx = getCoinDisplay().getCurIdx();
 		else
-			curIdx = dDisplay.getCurIdx();
+			curIdx = getDrinksDisplay().getCurIdx();
 		updateQtyDisplay(type, curIdx, qty);
 	}
 
@@ -221,6 +229,16 @@ public class MaintenancePanel extends Dialog {
 	}
 
 	public void displayPrice(int qty) {
-		dDisplay.getPriceDisplay().setValue(qty + "C");
+		getDrinksDisplay().getPriceDisplay().setValue(qty + "C");
+	}
+
+	@Override
+	protected Panel setUpCoinPanel() {
+		return new CoinDisplay(mctrl);
+	}
+
+	@Override
+	protected Panel setUpDrinkPanel() {
+		return new DrinkDisplay(mctrl);
 	}
 }
