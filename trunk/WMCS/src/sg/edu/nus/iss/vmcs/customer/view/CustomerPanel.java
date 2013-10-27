@@ -17,13 +17,13 @@ import sg.edu.nus.iss.vmcs.customer.controller.TransactionController;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 
-public class CustomerPanel extends Dialog {
+public class CustomerPanel extends VendingMachinePanel {
 
-	private static final String TITLE = "VIMTO Soft Drink Dispenser";
+	public static final String TITLE = "VIMTO Soft Drink Dispenser";
 	private TransactionController transactionControl;
 	
-	private CoinInputBox coinInputBox;
-	private DrinkSelectionBox drinkSelectionBox;
+	private Panel coinInputBox;
+	private Panel drinkSelectionBox;
 	private WarningDisplay noChange;
 	private LabelledDisplay refundBox;
 	private LabelledDisplay canCollectionBox;
@@ -39,8 +39,11 @@ public class CustomerPanel extends Dialog {
 		
 		Panel topPanel = new Panel();
 		topPanel.setLayout(new BorderLayout());
-		coinInputBox = new CoinInputBox(tc.getCoinReceiver(), tc);
-		drinkSelectionBox = new DrinkSelectionBox(tc);
+		
+		// use factory method
+		coinInputBox = setUpCoinPanel();
+		drinkSelectionBox = setUpDrinkPanel();
+		
 		topPanel.add("North", coinInputBox);
 		topPanel.add("South", drinkSelectionBox);
 		
@@ -69,6 +72,7 @@ public class CustomerPanel extends Dialog {
 		customerPanel.add("South", bottomPanel);
 		this.add("North", titlePanel);
 		this.add("Center", customerPanel);
+		
 		pack();
 		setLocation(350, 100);
 		
@@ -79,24 +83,24 @@ public class CustomerPanel extends Dialog {
 		});
 	}
 
-	public void display() {
-		this.setVisible(true);
-	}
-	
-	public void closeDown() {
-		this.dispose();
-	}
+//	public void display() {
+//		this.setVisible(true);
+//	}
+//	
+//	public void closeDown() {
+//		this.dispose();
+//	}
 	
 	public void setActive(boolean isActive, Component component) {
 		component.setEnabled(isActive);
 	}
 
 	public DrinkSelectionBox getDrinkSelectionBox() {
-		return drinkSelectionBox;
+		return (DrinkSelectionBox)drinkSelectionBox;
 	}
 	
 	public CoinInputBox getCoinInputBox() {
-		return coinInputBox;
+		return (CoinInputBox) coinInputBox;
 	}
 	
 	public LabelledDisplay getRefundBox() {
@@ -110,4 +114,35 @@ public class CustomerPanel extends Dialog {
 	public WarningDisplay getNoChangeDisplay() {
 		return noChange;
 	}
+
+	public void setCoinInputBox(CoinInputBox coinInputBox) {
+		this.coinInputBox = coinInputBox;
+	}
+
+	public void setDrinkSelectionBox(DrinkSelectionBox drinkSelectionBox) {
+		this.drinkSelectionBox = drinkSelectionBox;
+	}
+
+	public void setNoChange(WarningDisplay noChange) {
+		this.noChange = noChange;
+	}
+
+	public void setRefundBox(LabelledDisplay refundBox) {
+		this.refundBox = refundBox;
+	}
+
+	public void setCanCollectionBox(LabelledDisplay canCollectionBox) {
+		this.canCollectionBox = canCollectionBox;
+	}
+
+	@Override
+	protected Panel setUpCoinPanel() {
+		return new CoinInputBox(transactionControl);
+	}
+
+	@Override
+	protected Panel setUpDrinkPanel() {
+		return new DrinkSelectionBox(transactionControl);
+	}
+
 }

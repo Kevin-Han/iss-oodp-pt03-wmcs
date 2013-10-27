@@ -16,7 +16,7 @@ import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 
-public class TransactionController implements Observer {
+public class TransactionController implements Observer, Controller {
 
 	private MainController mainController;
 	private StoreController storeController;
@@ -80,6 +80,12 @@ public class TransactionController implements Observer {
 		SimulatorControlPanel scp = mainController.getSimulatorControlPanel();
 		if (customerPanel == null)
 			customerPanel = new CustomerPanel(scp, this);
+	//		CustomerPanelBuilder b = new CustomerPanelBuilder();
+	//		b.buildContainer(this, customerPanel);
+	//		b.buildCoinPanel(null);
+	//		b.buildDrinkPanel(null);
+	//		b.buildOtherPanel();
+	//		customerPanel = b.getUI();
 		customerPanel.display();
 		
 		dispenseController.updateDrinkPanel();

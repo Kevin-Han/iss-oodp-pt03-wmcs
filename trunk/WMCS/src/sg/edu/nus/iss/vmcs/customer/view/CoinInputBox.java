@@ -23,7 +23,7 @@ public class CoinInputBox extends Panel {
 	private LabelledDisplay totalDisplay;
 	private WarningDisplay invalidCoin;
 	
-	public CoinInputBox(CoinReceiver coinReceiver, TransactionController transactionController) {
+	public CoinInputBox(TransactionController transactionController) {
 		setLayout(new BorderLayout());
 		
 		Label coinLbl = new Label("Enter Coins Here");
@@ -43,7 +43,7 @@ public class CoinInputBox extends Panel {
 		add("South", totalPanel);
 		
 		
-		CoinInputListener l = new CoinInputListener(coinReceiver);
+		CoinInputListener l = new CoinInputListener(transactionController.getCoinReceiver());
 		
 		Panel coinInputPanel = new Panel();
 		add("Center", coinInputPanel);
