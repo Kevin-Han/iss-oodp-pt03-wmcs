@@ -1,0 +1,10 @@
+1. Although in this vmcs application, it is highly possible that we only need to implement one 
+	property file system, say txt file for example. But it will still be better if we use bridge 
+	design pattern to do a separation for the exact implementation of property file system and 
+	the abstracted interfaces, because when some specific changed need to be made on the property
+	file readings, we only need to re-link the whole system rather than re-compile the whole system.
+
+2. When this vmcs system is designed to be deployed on different platforms, on the implementation side
+	we use a parameter in the constructor to decide which platform interfaces should be used, in other 
+	words, we will choose the correct implementer dynamically. In this case, the abstract factory 
+	pattern also can be applied.
