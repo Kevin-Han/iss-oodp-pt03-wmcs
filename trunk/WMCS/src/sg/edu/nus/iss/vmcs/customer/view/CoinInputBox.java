@@ -14,7 +14,6 @@ import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.util.LabelledDisplay;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
 import sg.edu.nus.iss.vmcs.util.uifactory.AWTPanel;
-import sg.edu.nus.iss.vmcs.util.uifactory.AWTUIFactory;
 import sg.edu.nus.iss.vmcs.util.uifactory.VMCSButton;
 import sg.edu.nus.iss.vmcs.util.uifactory.VMCSComponentFactory;
 import sg.edu.nus.iss.vmcs.util.uifactory.VMCSPanel;
@@ -66,6 +65,7 @@ public class CoinInputBox extends AWTPanel {
 //		invalid.setActionCommand(String.valueOf(CashStore.INVALID_COIN_WEIGHT));
 //		coinInputPanel.add(invalid);
 		
+		// abstract factory to change ui look & feel
 		VMCSComponentFactory factory = transactionController.getMainController().getUIFactory();
 		
 		VMCSPanel coinInputPanel = factory.createPanel();
