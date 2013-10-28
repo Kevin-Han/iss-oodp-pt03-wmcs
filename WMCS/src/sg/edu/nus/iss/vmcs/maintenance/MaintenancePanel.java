@@ -16,6 +16,8 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import sg.edu.nus.iss.vmcs.customer.view.VendingMachinePanel;
 import sg.edu.nus.iss.vmcs.store.Coin;
@@ -119,18 +121,24 @@ public class MaintenancePanel extends VendingMachinePanel {
 
 		pack();
 		setLocation(720, 100);
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				mctrl.closeMaintenancePanel();
+			}
+		});		
 	}
 
-//	public void display() {
-//		System.out.println("MaintenancePanel: before display");
-//		this.setVisible(true);
-//		System.out.println("MaintenancePanel: after display");
-//
-//	}
-//
-//	public void closeDown() {
-//		dispose();
-//	}
+	public void display() {
+		System.out.println("MaintenancePanel: before display");
+		this.setVisible(true);
+		System.out.println("MaintenancePanel: after display");
+
+	}
+
+	public void closeDown() {
+		dispose();
+	}
 
 	public CoinDisplay getCoinDisplay() {
 		return (CoinDisplay) coinPanel;
