@@ -1,0 +1,9 @@
+1. Direct mapping subjects to their observers. Since in this application, there are only a few 
+	subjects need to be observed such as CashStoreItem and DrinkStoreItem, storage is not a problem.
+
+2. Within this system, the TransactionController, MaintenanceController and MachineryController are the
+	observers of CashStoreItem and DrinkStoreItem, in order that each controller can know which subject
+	is sending the update notification, we put a parameter of the subject itself to indicate the observers.
+
+3. Subject will be responsible for sending the notification. Because all of the backend controller need to 
+	immediately know the updated information of CashStoreItem and DrinkStoreItem.
