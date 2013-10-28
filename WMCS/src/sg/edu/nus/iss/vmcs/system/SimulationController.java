@@ -12,6 +12,7 @@ import sg.edu.nus.iss.vmcs.customer.controller.TransactionController;
 import sg.edu.nus.iss.vmcs.maintenance.MaintenanceController;
 import sg.edu.nus.iss.vmcs.machinery.MachineryController;
 import sg.edu.nus.iss.vmcs.util.*;
+import sg.edu.nus.iss.vmcs.util.uifactory.VMCSComponentFactory;
 
 /**
  *
@@ -29,7 +30,7 @@ public class SimulationController {
 		mCtrl = ctrl;
 		scp = new SimulatorControlPanel(this);
 	}
-
+	
 	public SimulatorControlPanel getSimulatorControlPanel() {
 		return (scp);
 	}
