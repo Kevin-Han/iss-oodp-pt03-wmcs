@@ -50,6 +50,7 @@ public class CoinReceiver {
 		} else { // invalid coin
 			coinInputBox.getInvalidCoinDisplay().setState(true);
 			transactionController.getRefundBox().setValue("Invalid Coin");
+			transactionController.setTransactionState(transactionController.getSuspendTxnState());
 			coinInputBox.setActive(false);
 		}
 	}
