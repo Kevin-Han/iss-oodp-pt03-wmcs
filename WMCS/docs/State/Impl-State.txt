@@ -1,0 +1,3 @@
+1. Since the state transition criteria is pre-fixed, we control the state transition in a TransactionController context.
+2. When user initialize a new transaction, all the states will be created simultaneously. This approach will speed up the system performance which can bring a 
+	responsive experience to users. 
