@@ -171,10 +171,16 @@ public class MaintenanceController implements Observer {
 		mpanel.setActive(MaintenancePanel.DIALOG, true);
 
 	}
+	
+	public void closeMaintenancePanel() {
+		mpanel.closeDown();
+		SimulatorControlPanel scp = mCtrl.getSimulatorControlPanel();
+		scp.setActive(SimulatorControlPanel.ACT_MAINTAINER, true);
+	}
 
 	public void closeDown() {
 		if (mpanel != null)
-			mpanel.closeDown();
+			mpanel.dispose();
 	}
 
 	@Override
