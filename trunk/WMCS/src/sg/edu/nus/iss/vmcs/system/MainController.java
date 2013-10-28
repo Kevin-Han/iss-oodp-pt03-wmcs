@@ -15,6 +15,7 @@ import sg.edu.nus.iss.vmcs.maintenance.*;
 import sg.edu.nus.iss.vmcs.machinery.*;
 import sg.edu.nus.iss.vmcs.store.*;
 import sg.edu.nus.iss.vmcs.util.*;
+import sg.edu.nus.iss.vmcs.util.uifactory.VMCSComponentFactory;
 
 /**
  *
@@ -30,6 +31,7 @@ public class MainController {
 	private MaintenanceController maintenanceCtrl;
 	private TransactionController transactionCtrl;
 	private StoreController       storeCtrl;
+	private VMCSComponentFactory  uiFactory;
 
 	private String      propertyFile;
 
@@ -37,6 +39,13 @@ public class MainController {
 		this.propertyFile = propertyFile;
 	}
 
+	public VMCSComponentFactory getUIFactory() {
+		return uiFactory;
+	}
+	public void setUIFactory(VMCSComponentFactory factory) {
+		this.uiFactory = factory;
+	}
+	
 	public void start() throws VMCSException {
 		try {
 			initialize();
@@ -59,6 +68,9 @@ public class MainController {
 			//cashLoader.initialize();
 			//drinksLoader.initialize();
 			
+			uiFactory = (VMCSComponentFactory) Class.forName(Environment.getUIFactory())
+					.newInstance();
+			
 			//abstractions
 			CashStoreLoader cashStoreLoader = new CashStoreLoader(cashLoader);
 			
@@ -77,6 +89,15 @@ public class MainController {
 			throw new VMCSException(
 				"MainController.initialize",
 				e.getMessage());
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

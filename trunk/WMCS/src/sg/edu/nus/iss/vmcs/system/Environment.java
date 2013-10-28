@@ -26,6 +26,7 @@ public class Environment {
 	// property keys
 	public final static String DRINK_PROP_FILE = "drinkFile";
 	public final static String CASH_PROP_FILE = "cashFile";
+	public final static String UI_FACTORY = "uiFactory";
 	public final static String PASSWORD = "password";
 
 	private static Properties prop;
@@ -51,6 +52,10 @@ public class Environment {
 		String fn;
 		fn = prop.getProperty(CASH_PROP_FILE);
 		return fn;
+	}
+	
+	public static String getUIFactory() {
+		return prop.getProperty(UI_FACTORY);
 	}
 
 	// if you put password in the property file, the password is obtained here.
