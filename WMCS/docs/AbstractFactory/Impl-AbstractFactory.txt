@@ -1,0 +1,4 @@
+1. Because for every single UI Factory, typically we only need one instance, we use singleton design pattern per UI factory.
+2. For each UI factory, we can apply factory method pattern or prototype pattern. Since in this case, the UI components like buttons, labels, layouts, combox and images etc are 
+   different from each other, instead of the prototype design pattern, we will use factory method pattern to create each special UI component.
+3. Adding a parameter to the UI component creation interfaces so that we can more easily to extend any other possible UI components. 
