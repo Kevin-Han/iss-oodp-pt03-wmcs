@@ -22,12 +22,12 @@ public class CompleteTransactionState implements TransactionState {
 	
 	@Override
 	public void startTransaction(int drinkIndex) {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
 	public void processMoneyReceived(int total) {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class CompleteTransactionState implements TransactionState {
 
 	@Override
 	public void cancelTransaction() {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
@@ -64,6 +64,11 @@ public class CompleteTransactionState implements TransactionState {
 	@Override
 	public void terminateTransaction() {
 		// TODO
+	}
+
+	@Override
+	public void receiveCoin(double weight) {
+		System.out.println("Invalid operation...");
 	}
 
 }

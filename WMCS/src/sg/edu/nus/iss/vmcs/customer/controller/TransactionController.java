@@ -198,5 +198,9 @@ public class TransactionController implements Observer {
 	public void update(Observable o, Object arg) {
 		refreshCustomerPanel();
 	}
+
+	public void receiveCoin(double weight) {
+		currentState.receiveCoin(weight);
+	}
 	
 }

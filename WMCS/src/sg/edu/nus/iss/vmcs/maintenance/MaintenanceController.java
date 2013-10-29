@@ -8,14 +8,22 @@ package sg.edu.nus.iss.vmcs.maintenance;
  *
  */
 
-import java.awt.*;
+import java.awt.Frame;
 import java.util.Observable;
 import java.util.Observer;
 
-import sg.edu.nus.iss.vmcs.store.*;
-import sg.edu.nus.iss.vmcs.system.*;
-import sg.edu.nus.iss.vmcs.machinery.*;
-import sg.edu.nus.iss.vmcs.util.*;
+import sg.edu.nus.iss.vmcs.customer.controller.TransactionController;
+import sg.edu.nus.iss.vmcs.machinery.MachineryController;
+import sg.edu.nus.iss.vmcs.store.CashStoreItem;
+import sg.edu.nus.iss.vmcs.store.DrinksBrand;
+import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
+import sg.edu.nus.iss.vmcs.store.Store;
+import sg.edu.nus.iss.vmcs.store.StoreController;
+import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.system.MainController;
+import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
+import sg.edu.nus.iss.vmcs.util.MessageDialog;
+import sg.edu.nus.iss.vmcs.util.VMCSException;
 
 /**
  *
@@ -68,6 +76,12 @@ public class MaintenanceController implements Observer {
 			mpanel.setActive(MaintenancePanel.PSWD, false);
 			MachineryController machctrl = mCtrl.getMachineryController();
 			machctrl.setDoorState(false);
+			
+			// transition to suspend transaction state
+			TransactionController tCtrl = mCtrl.getTransactionController();
+			//tCtrl.getCoinInputBox().setActive(false);
+			//tCtrl.getDrinkSelectionBox().setActive(false);
+			tCtrl.setTransactionState(tCtrl.getSuspendTxnState());
 		}
 	}
 
@@ -167,7 +181,15 @@ public class MaintenanceController implements Observer {
 			msg.setLocation(500, 500);
 			return;
 		}
-
+		
+		// transition to drink selection state after maintainer logout (problem fixed)
+		TransactionController tCtrl = mCtrl.getTransactionController();
+		tCtrl.getCoinInputBox().setActive(false);
+		tCtrl.getCoinInputBox().getTotalDisplay().setValue("0C");
+		tCtrl.getDrinkSelectionBox().setActive(true);
+		tCtrl.getRefundBox().setValue("0C");
+		tCtrl.setTransactionState(tCtrl.getSelectDrinkState());
+		
 		mpanel.setActive(MaintenancePanel.DIALOG, true);
 
 	}

@@ -43,7 +43,7 @@ public class CoinInputBox extends AWTPanel {
 		add("South", totalPanel);
 		
 		
-		CoinInputListener l = new CoinInputListener(transactionController.getCoinReceiver());
+		CoinInputListener l = new CoinInputListener(transactionController);
 		
 		StoreController storeController = transactionController.getMainController().getStoreController();
 		StoreItem[] cashItems = storeController.getStoreItems(Store.CASH);

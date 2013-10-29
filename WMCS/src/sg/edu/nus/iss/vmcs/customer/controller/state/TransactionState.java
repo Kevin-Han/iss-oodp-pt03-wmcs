@@ -7,4 +7,5 @@ public interface TransactionState {
 	public void cancelTransaction();
 	public void terminateFault();
 	public void terminateTransaction();
+	public void receiveCoin(double weight);
 }

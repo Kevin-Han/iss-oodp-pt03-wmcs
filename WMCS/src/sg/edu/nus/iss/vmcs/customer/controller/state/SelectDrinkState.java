@@ -72,4 +72,9 @@ public class SelectDrinkState implements TransactionState {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void receiveCoin(double weight) {
+		System.out.println("Invalid operation...");
+	}
+
 }
