@@ -18,8 +18,19 @@ package sg.edu.nus.iss.vmcs.store;
 public class CashStore extends Store {
 
 	public final static int INVALID_COIN_WEIGHT = 9999;
-
-	public CashStore() {
+	private volatile static CashStore cashStore;
+	
+	private CashStore() {
+	}
+	
+	public static CashStore getInstance() {
+		if (cashStore == null) {
+			synchronized (CashStore.class) {
+				if (cashStore == null)
+					cashStore = new CashStore();
+			}
+		}
+		return cashStore;
 	}
 	
 	public int findCashStoreIndex (Coin c) {
