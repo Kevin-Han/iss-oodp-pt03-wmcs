@@ -17,7 +17,19 @@ package sg.edu.nus.iss.vmcs.store;
 
 public class DrinksStore extends Store {
 
-	public DrinksStore() {
+	private volatile static DrinksStore drinkStore;
+	
+	private DrinksStore() {
+	}
+	
+	public static DrinksStore getInstance() {
+		if (drinkStore == null) {
+			synchronized (DrinksStore.class) {
+				if (drinkStore == null)
+					drinkStore = new DrinksStore();
+			}
+		}
+		return drinkStore;
 	}
 
 }
