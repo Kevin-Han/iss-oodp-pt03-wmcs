@@ -12,32 +12,37 @@ public class SuspendTransactionState implements TransactionState {
 
 	@Override
 	public void startTransaction(int drinkIndex) {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
 	public void processMoneyReceived(int total) {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
 	public void completeTransaction() {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
 	public void cancelTransaction() {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
 	public void terminateFault() {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
 	}
 
 	@Override
 	public void terminateTransaction() {
-		System.out.println("Invalid operation..");
+		System.out.println("Invalid operation...");
+	}
+
+	@Override
+	public void receiveCoin(double weight) {
+		System.out.println("Invalid operation...");
 	}
 	
 }

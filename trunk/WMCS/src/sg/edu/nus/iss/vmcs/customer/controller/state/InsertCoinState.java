@@ -59,4 +59,9 @@ public class InsertCoinState implements TransactionState {
 		
 	}
 
+	@Override
+	public void receiveCoin(double weight) {
+		coinReceiver.receiveCoin(weight);
+	}
+
 }
